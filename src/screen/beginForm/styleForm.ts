@@ -11,8 +11,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    borderBottomWidth: 20,
-    borderBottomColor: '#79169D',
     borderTopWidth: 20,
     borderTopColor: '#79169D',
   },
