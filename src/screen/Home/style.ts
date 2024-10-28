@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     borderTopWidth: 20,
     borderTopColor: '#79169D',
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   header: {
     flex: 1,
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   },
   containerItemsHeader: {
     alignItems: 'center',
-    gap: 15
+    gap: 15,
   },
   img: {
     width: width * 0.2,
@@ -32,14 +32,31 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     color: 'black',
-    marginTop: 20
+    marginTop: 20,
   },
   titleSectionContactSpan: {
-    color: '#79169D'
+    color: '#79169D',
   },
   containerContacts: {
     height: height * 0.73,
     alignItems: 'center',
-    padding: height * 0.05
+    padding: height * 0.05,
+  },
+  containerNotContactsAviable: {
+    height: height * 0.73,
+    alignItems: 'center'
+  },
+  imgNoContactsAviable: {
+    width: width * 0.6,
+    height: height * 0.6,
+  },
+  textNoContactsAviable: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+    color: '#000000'
+  },
+  spamNoContacts:{
+    color: '#79169D'
   }
 });

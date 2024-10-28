@@ -8,24 +8,24 @@ interface UserProviderProps {
 }
 
 interface UserContextProps {
-  getUser: () => Promise<UserInfoInterface | null | undefined>;
-  getContacts: () => Promise<ContactInterface | null | undefined>;
+  getUser: () => Promise<UserInfoInterface | null>;
+  getContacts: () => Promise<ContactInterface[] | null>;
 }
 
 const UserContext = createContext<UserContextProps>({
-  getUser: async () => ({} as UserInfoInterface),
-  getContacts: async () => ({} as ContactInterface),
+  getUser: async () => null,
+  getContacts: async () => null,
 });
 
 export const UserProvider = ({children}: UserProviderProps) => {
-  const [contacts, setContacts] = useState<ContactInterface>();
+  const [contacts, setContacts] = useState<ContactInterface[]>();
   const [user, setUser] = useState<UserInfoInterface>();
 
   const getContacts = async () => {
     try {
         const _contacts = await AsyncStorage.getItem('contacts');
         if (_contacts) {
-          const contactData = JSON.parse(_contacts) as ContactInterface;
+          const contactData = JSON.parse(_contacts) as ContactInterface[];
           setContacts(contactData);
           return contactData;
         }
@@ -33,6 +33,7 @@ export const UserProvider = ({children}: UserProviderProps) => {
         return null;
       } catch (err) {
         console.log(err);
+        return null
       }
   };
 
@@ -48,6 +49,7 @@ export const UserProvider = ({children}: UserProviderProps) => {
       return null;
     } catch (err) {
       console.log(err);
+      return null
     }
   };
 

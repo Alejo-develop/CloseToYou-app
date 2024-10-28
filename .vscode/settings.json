@@ -1,5 +1,6 @@
 {
     "conventionalCommits.scopes": [
-        "Build Project, and first commit"
+        "Build Project, and first commit",
+        "Home screen and logic"
     ]
 }

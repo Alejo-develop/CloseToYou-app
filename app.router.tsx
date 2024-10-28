@@ -6,6 +6,7 @@ import HomeScreen from './src/screen/Home/home.screen';
 import BeginForm from './src/screen/beginForm/beginForm.screen';
 import ChooseYourAvatar from './src/screen/beginForm/beginchooseAvatar.screen';
 import {UserProvider} from './src/context/userContext';
+import AddOrEditScreen from './src/screen/addOrEdit/addOrEditContact.screen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,11 @@ const MyStack = () => {
           <Stack.Screen
             name="Home"
             component={HomeScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Form"
+            component={AddOrEditScreen}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

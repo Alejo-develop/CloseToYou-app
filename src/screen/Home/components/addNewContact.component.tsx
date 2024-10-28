@@ -1,3 +1,4 @@
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import {
   Dimensions,
   StyleSheet,
@@ -8,10 +9,19 @@ import {
 
 const {width} = Dimensions.get('screen');
 
+type RootStackParamList = {
+  Form: undefined;
+};
+
 const AddContactButtonComponent = () => {
+  const goTo = useNavigation<NavigationProp<RootStackParamList>>()
+  const onPress = () => {
+    goTo.navigate('Form')
+  }
+
   return (
     <View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={onPress}>
         <Text style={styles.textButton}>Add new contact</Text>
       </TouchableOpacity>
     </View>
