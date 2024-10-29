@@ -3,11 +3,13 @@ import {styles} from './style.ts';
 import InputComponent from '../../components/inputGeneric/input.component.tsx';
 import AddContactButtonComponent from './components/addNewContact.component.tsx';
 import HomeScreenHook from '../../hooks/homeScreen.tsx';
-import {useEffect, useState} from 'react';
+import {useCallback, useState} from 'react';
 import ContactCardComponent from '../../components/contactCardComponent/contactCard.component.tsx';
 import {useUser} from '../../context/userContext.tsx';
 import {UserInfoInterface} from '../../interface/user.interface.ts';
 import {ContactInterface} from '../../interface/contacts.interface.ts';
+import { useFocusEffect } from '@react-navigation/native';
+import ContactList from '../../components/sectionlistComponent/sectionList.component.tsx';
 
 const HomeScreen = () => {
   const {randomImg, getRandomAvatar, setRandomImg} = HomeScreenHook();
@@ -15,18 +17,19 @@ const HomeScreen = () => {
   const [contacts, setContacts] = useState<ContactInterface[] | null>(null);
   const userContext = useUser();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const user = await userContext.getUser();
-
-      const contacts = await userContext.getContacts();
-      setContacts(contacts);
-      setUser(user);
-    };
-
-    fetchData();
-    setRandomImg(getRandomAvatar());
-  }, []);
+  const fetchData = async () => {
+    const contacts = await userContext.fetchContacts();
+    const user = await userContext.getUser(); 
+    setContacts(contacts);
+    setUser(user);
+  };
+  
+  useFocusEffect(
+    useCallback(() => {
+      fetchData(); 
+      setRandomImg(getRandomAvatar());
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
@@ -63,11 +66,9 @@ const HomeScreen = () => {
             </Text>
           </View>
         )}
+        
         {contacts &&
-          contacts.length > 0 &&
-          contacts.map((contact, index) => (
-            <ContactCardComponent key={index} />
-          ))}
+          contacts.length > 0 && <ContactList contacts={contacts}/>}
       </View>
     </View>
   );

@@ -13,13 +13,14 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopWidth: 20,
     borderTopColor: '#79169D',
+    justifyContent: 'center'
   },
   img: {
-    width: 500,
-    height: 500
+    width: width * 0.5,
+    height: height * 0.45
   },
   titleScreen: {
-    fontSize: 25,
+    fontSize: height * 0.025,
     textAlign: 'center',
     fontWeight: 'bold',
     color: '#000000',

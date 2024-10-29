@@ -1,13 +1,64 @@
-import { Text, View } from "react-native"
+import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {styles} from './style';
+import InputComponent from '../../components/inputGeneric/input.component';
+import ButtonGenericComponent from '../../components/buttonGeneric/button.component';
+import {useEffect, useState} from 'react';
+import AddOrEditHook from '../../hooks/addOrEdit';
+import { useUser } from '../../context/userContext';
+import { useNavigation } from '@react-navigation/native';
 
 const AddOrEditScreen = () => {
-    return( 
-        <View>
-            <Text>
-                Hola desde edit o create
-            </Text>
-        </View>
-    )
-}
+  const {selectImg, img, setForm, form} = AddOrEditHook();
+  const [imgSelected, setImgSelected] = useState<string | null>(img);
+  const userContext = useUser()
+  const goTo = useNavigation()
 
-export default AddOrEditScreen
+  const handleNext = () => {
+    selectImg();
+    setImgSelected(img);
+  };
+
+  const handleSubmit = async () => {
+    await userContext.saveContact(form),
+    goTo.navigate('Home' as never)
+  }
+
+  useEffect(() => {
+    setImgSelected(img);
+  }, [img]);
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.containerImg}>
+        {imgSelected === null ? (
+          <TouchableOpacity style={styles.buttonSelectImg} onPress={handleNext}>
+            <Text style={styles.textButtonSelectImg}>Add Photo</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={styles.buttonSelect} onPress={handleNext}>
+            <Image style={styles.imgSelected} source={{uri: imgSelected}} />
+          </TouchableOpacity>
+        )}
+      </View>
+
+      <View style={styles.containerInputs}>
+        <InputComponent placeholder="Full Name" onChangeText={text => setForm('name', text)} />
+        <InputComponent placeholder="Number" onChangeText={text => setForm('number', text)}/>
+        <InputComponent placeholder="How is for you?" onChangeText={text => setForm('role', text)}/>
+        <InputComponent placeholder="Second Number" onChangeText={text => setForm('secondNumber', text)}/>
+        <InputComponent placeholder="Email" onChangeText={text => setForm('email', text)}/>
+        <InputComponent placeholder="Address" onChangeText={text => setForm('address', text)}/>
+      </View>
+
+      <View style={styles.containerButtonConfirm}>
+        <Image
+          style={styles.imgButtonConfirm}
+          source={require('../../assets/img/DrawKit_0091_Chubbs_Illustrations/sorprise.png')}
+        />
+        <ButtonGenericComponent text="Confirmar" saveContact={handleSubmit}/>
+      </View>
+    </View>
+  );
+};
+
+export default AddOrEditScreen;

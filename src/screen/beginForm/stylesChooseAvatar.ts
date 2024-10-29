@@ -31,17 +31,17 @@ export const styles = StyleSheet.create({
     marginBottom: 0
   },
   avatar: {
-    width: width * 0.3,
+    width: width * 0.5,
     height: height * 0.3,
   },
   h1: {
-    fontSize: 30,
+    fontSize: height * 0.03,
     fontWeight: 'bold',
     color: '#000000',
     fontFamily: 'Itim',
   },
   h1_span: {
-    fontSize: 30,
+    fontSize: height * 0.03,
     fontWeight: 'bold',
     color: '#79169D',
     fontFamily: 'Itim',

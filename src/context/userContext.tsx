@@ -9,19 +9,23 @@ interface UserProviderProps {
 
 interface UserContextProps {
   getUser: () => Promise<UserInfoInterface | null>;
-  getContacts: () => Promise<ContactInterface[] | null>;
+  fetchContacts: () => Promise<ContactInterface[] | null>;
+  getContacts: () => ContactInterface[] | null;
+  saveContact: (newContact: ContactInterface) => Promise<void>;
 }
 
 const UserContext = createContext<UserContextProps>({
   getUser: async () => null,
-  getContacts: async () => null,
+  fetchContacts: async () => null,
+  getContacts: () => null,
+  saveContact: async () => {},
 });
 
 export const UserProvider = ({children}: UserProviderProps) => {
-  const [contacts, setContacts] = useState<ContactInterface[]>();
+  const [contacts, setContacts] = useState<ContactInterface[]>([]);
   const [user, setUser] = useState<UserInfoInterface>();
 
-  const getContacts = async () => {
+  const fetchContacts = async () => {
     try {
         const _contacts = await AsyncStorage.getItem('contacts');
         if (_contacts) {
@@ -53,8 +57,21 @@ export const UserProvider = ({children}: UserProviderProps) => {
     }
   };
 
+  const saveContact = async (newContact: ContactInterface) =>{
+    try {
+      const updateContacts = [...contacts, newContact];
+      await AsyncStorage.setItem('contacts', JSON.stringify(updateContacts));
+      setContacts(updateContacts);
+      fetchContacts()
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const getContacts = () => (contacts && contacts.length > 0) ? contacts : null;
+
   return (
-    <UserContext.Provider value={{getUser, getContacts}}>
+    <UserContext.Provider value={{getUser, fetchContacts, getContacts, saveContact}}>
       {children}
     </UserContext.Provider>
   );

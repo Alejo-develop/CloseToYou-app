@@ -5,4 +5,5 @@ export interface ContactInterface{
     secondNumber?: string;
     email?: string;
     address?: string;
+    img?: string | null;
 }

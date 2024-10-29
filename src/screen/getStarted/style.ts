@@ -1,4 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
+
+const {width} = Dimensions.get('screen')
+const {height} = Dimensions.get('screen')
 
 export const styles = StyleSheet.create({
   container: {
@@ -22,39 +25,39 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   h1: {
-    fontSize: 30,
+    fontSize: height * 0.025,
     fontWeight: 'bold',
     color: '#000000',
     fontFamily: 'Itim',
   },
   span: {
     color: '#79169D',
-    fontSize: 30,
+    fontSize: height * 0.025,
   },
   slogan: {
     fontSize: 15,
     color: '#000000',
   },
   img: {
-    width: 500,
-    height: 500,
+    width: width * 0.85,
+    height: height * 0.5
   },
   secondScreen: {
     alignItems: 'center'
   },
   titleScondScreen: {
-    fontSize: 30,
+    fontSize: height * 0.025,
     paddingBottom: 10,
     fontWeight: 'bold',
     color: '#000000'
   },
   description: {
-    fontSize: 15,
+    fontSize: height * 0.015,
     color: '#000000',
     textAlign: 'center'
   },
   spanDescription: {
     color: '#79169D',
-    fontSize: 15,
+    fontSize: height * 0.015,
   },
 });

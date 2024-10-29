@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     gap: 15,
   },
   img: {
-    width: width * 0.2,
+    width: width * 0.25,
     height: height * 0.2,
   },
   titleSectionContact: {
@@ -44,11 +44,14 @@ export const styles = StyleSheet.create({
   },
   containerNotContactsAviable: {
     height: height * 0.73,
+    width: width * 1,
+    justifyContent: 'center',
     alignItems: 'center'
   },
   imgNoContactsAviable: {
-    width: width * 0.6,
-    height: height * 0.6,
+    width: width * 0.55,
+    height: height * 0.55,
+    marginLeft: width * 0.06
   },
   textNoContactsAviable: {
     fontWeight: 'bold',

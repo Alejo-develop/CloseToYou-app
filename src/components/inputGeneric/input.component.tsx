@@ -11,6 +11,7 @@ const InputComponent = ({ placeholder, value, onChangeText }: InputProps) =>{
                 editable={true}
                 value={value}
                 onChangeText={onChangeText}
+                placeholderTextColor={'gray'}
             />
         </View>
     )
