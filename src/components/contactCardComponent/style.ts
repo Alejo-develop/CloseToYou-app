@@ -11,19 +11,19 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         alignItems: 'center',
         flexDirection: 'row',
-        gap: 10
+        justifyContent: 'space-between',
     },
     containerImg: {
         width: width * 0.1,
         height: height * 0.045,
         borderRadius: 25,
-        marginLeft: 6,
+        marginLeft: 5,
         alignItems: 'center',
         justifyContent: 'center'
     },
     imgContact:{
-        width: width * 0.05,
-        height: height * 0.05,
+        width: width * 0.11,
+        height: height * 0.048,
         borderRadius: 25,
     },
     nameContact: {
@@ -35,12 +35,16 @@ const styles = StyleSheet.create({
     },
     containerIcons: {
         flexDirection: 'row',
-        marginLeft: width * 0.11,
+        marginRight: width * 0.07,
         gap: 18
     },
     icons:{
         fontSize: 23,
         color: '#79169D'
+    },
+    containerInfocontact: {
+        flexDirection: 'row',
+        gap: width * 0.04
     }
 })
 

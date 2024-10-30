@@ -1,18 +1,18 @@
 import React from 'react';
 import {SectionList, View, Text, TouchableOpacity, Image} from 'react-native';
-import { ContactInterface } from '../../interface/contacts.interface';
+import {ContactInterface} from '../../interface/contacts.interface';
+import ContactCardComponent from '../contactCardComponent/contactCard.component';
+import {styles} from './styles';
 
 interface ContactListProps {
   contacts: ContactInterface[];
 }
 
-const ContactList: React.FC<ContactListProps> = ({
-  contacts,
-}) => {
-  // Crear una copia antes de ordenar
-  const sortedContacts = [...contacts].sort((nameA, nameB) => nameA.name.localeCompare(nameB.name));
+const ContactList: React.FC<ContactListProps> = ({contacts}) => {
+  const sortedContacts = [...contacts].sort((nameA, nameB) =>
+    nameA.name.localeCompare(nameB.name),
+  );
 
-  // Agrupar los contactos por la primera letra de su nombre
   const groupedContacts = sortedContacts.reduce((acc, contact) => {
     const firstLetter = contact.name[0].toUpperCase();
     if (!acc[firstLetter]) {
@@ -22,7 +22,6 @@ const ContactList: React.FC<ContactListProps> = ({
     return acc;
   }, {} as Record<string, ContactInterface[]>);
 
-  // Crear secciones
   const sections = Object.keys(groupedContacts)
     .sort()
     .map(letter => ({
@@ -32,21 +31,26 @@ const ContactList: React.FC<ContactListProps> = ({
 
   return (
     <SectionList
+      style={styles.containerList}
       sections={sections}
-      keyExtractor={item => item.number.toString()} // Asegúrate de que `number` sea único y conviértelo a cadena
+      keyExtractor={item => item.number.toString()}
       renderItem={({item}) => (
-        <TouchableOpacity>
-          <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
-            {item.img && (
-              <Image source={{uri: item.img}} style={{ width: 40, height: 40, borderRadius: 20, marginRight: 10 }} />
-            )}
-            <Text style={{ fontSize: 16 }}>{item.name}</Text>
-          </View>
-        </TouchableOpacity>
+        <View style={{alignItems: 'center', justifyContent: 'center', marginBottom: 15}}>
+          <ContactCardComponent
+            name={item.name}
+            img={item.img}
+            role={item.role}
+            index={item.id}
+            number={item.number}
+            secondNumber={item.secondNumber}
+            address={item.address}
+            email={item.email}
+          />
+        </View>
       )}
       renderSectionHeader={({section: {title}}) => (
-        <View style={{ backgroundColor: '#f0f0f0', padding: 5 }}>
-          <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{title}</Text>
+        <View style={styles.containertextSeparator}>
+          <Text style={styles.textSeparator}>{title}</Text>
         </View>
       )}
     />

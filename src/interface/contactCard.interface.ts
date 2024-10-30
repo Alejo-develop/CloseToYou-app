@@ -1,5 +1,5 @@
-export interface ContactInterface{
-    id: number;
+export interface ContactCardProps{
+    index: number;
     name: string;
     number: string;
     role: string;

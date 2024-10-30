@@ -5,13 +5,17 @@ import ButtonGenericComponent from '../../components/buttonGeneric/button.compon
 import {useEffect, useState} from 'react';
 import AddOrEditHook from '../../hooks/addOrEdit';
 import { useUser } from '../../context/userContext';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { ContactInterface } from '../../interface/contacts.interface';
 
 const AddOrEditScreen = () => {
   const {selectImg, img, setForm, form} = AddOrEditHook();
   const [imgSelected, setImgSelected] = useState<string | null>(img);
   const userContext = useUser()
   const goTo = useNavigation()
+  const route = useRoute()
+
+  const { id, name, number, address, email, secondNumber, img: imgPorfile, role } = route.params as ContactInterface
 
   const handleNext = () => {
     selectImg();

@@ -3,13 +3,13 @@ import {styles} from './style.ts';
 import InputComponent from '../../components/inputGeneric/input.component.tsx';
 import AddContactButtonComponent from './components/addNewContact.component.tsx';
 import HomeScreenHook from '../../hooks/homeScreen.tsx';
-import {useCallback, useState} from 'react';
-import ContactCardComponent from '../../components/contactCardComponent/contactCard.component.tsx';
+import {useCallback, useEffect, useState} from 'react';
 import {useUser} from '../../context/userContext.tsx';
 import {UserInfoInterface} from '../../interface/user.interface.ts';
 import {ContactInterface} from '../../interface/contacts.interface.ts';
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 import ContactList from '../../components/sectionlistComponent/sectionList.component.tsx';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = () => {
   const {randomImg, getRandomAvatar, setRandomImg} = HomeScreenHook();
@@ -19,26 +19,27 @@ const HomeScreen = () => {
 
   const fetchData = async () => {
     const contacts = await userContext.fetchContacts();
-    const user = await userContext.getUser(); 
+    const user = await userContext.getUser();
     setContacts(contacts);
     setUser(user);
-  };
-  
+  };  
+
   useFocusEffect(
     useCallback(() => {
-      fetchData(); 
-      setRandomImg(getRandomAvatar());
-    }, [])
-  );
+      fetchData();
+      setRandomImg(getRandomAvatar()); 
+    }, []),
+  ); 
+
+  useEffect(() => {
+    setContacts(userContext.contacts);
+  }, [userContext.contacts]);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.containerItemsHeader}>
-          <Text style={styles.titleSectionContact}>
-            Search contacts{' '}
-            <Text style={styles.titleSectionContactSpan}>{user?.name}</Text>
-          </Text>
+          <Text style={styles.titleSectionContact}>Search contacts </Text>
 
           <InputComponent placeholder="Search someone..." />
 
@@ -66,9 +67,13 @@ const HomeScreen = () => {
             </Text>
           </View>
         )}
-        
-        {contacts &&
-          contacts.length > 0 && <ContactList contacts={contacts}/>}
+
+        {contacts && contacts.length > 0 && (
+          <View>
+            <Text style={styles.titleContainerSectionContacts}>Your Address Book <Text style={styles.titleSectionContactSpan}>{user?.name}</Text></Text>
+            <ContactList contacts={contacts} />
+          </View>
+        )}
       </View>
     </View>
   );

@@ -42,6 +42,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     padding: height * 0.05,
   },
+  titleContainerSectionContacts:{
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: height * 0.023,
+    color: 'black',
+    marginBottom: height * 0.02
+  },
   containerNotContactsAviable: {
     height: height * 0.73,
     width: width * 1,

@@ -2,6 +2,7 @@ import {createContext, useContext, useState} from 'react';
 import {ContactInterface} from '../interface/contacts.interface';
 import {UserInfoInterface} from '../interface/user.interface';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Image } from 'react-native';
 
 interface UserProviderProps {
   children: React.ReactNode;
@@ -9,16 +10,22 @@ interface UserProviderProps {
 
 interface UserContextProps {
   getUser: () => Promise<UserInfoInterface | null>;
+  contacts: ContactInterface[] | null;
   fetchContacts: () => Promise<ContactInterface[] | null>;
   getContacts: () => ContactInterface[] | null;
   saveContact: (newContact: ContactInterface) => Promise<void>;
+  deleteContact: (id: number) => void,
+  editContact: (updateUser: ContactInterface) => void
 }
 
 const UserContext = createContext<UserContextProps>({
   getUser: async () => null,
+  contacts: null,
   fetchContacts: async () => null,
   getContacts: () => null,
   saveContact: async () => {},
+  deleteContact: async () => {},
+  editContact: async () => {}
 });
 
 export const UserProvider = ({children}: UserProviderProps) => {
@@ -41,7 +48,7 @@ export const UserProvider = ({children}: UserProviderProps) => {
       }
   };
 
-  const getUser = async () => {
+  const getUser = async () => { 
     try {
       const _user = await AsyncStorage.getItem('userInfo');
       if (_user) {
@@ -58,8 +65,20 @@ export const UserProvider = ({children}: UserProviderProps) => {
   };
 
   const saveContact = async (newContact: ContactInterface) =>{
+    const genericUserUri = Image.resolveAssetSource(
+      require('../assets/img/DrawKit_0091_Chubbs_Illustrations/genericUserPhoto.png')
+    ).uri;
+    const {img, role} = newContact
+
+    const formatedContact = {
+      ...newContact,
+      id: contacts.length + 1,
+      img: img ? img : genericUserUri,
+      role: role ? role : 'Friend'
+    }
+
     try {
-      const updateContacts = [...contacts, newContact];
+      const updateContacts = [...contacts, formatedContact];
       await AsyncStorage.setItem('contacts', JSON.stringify(updateContacts));
       setContacts(updateContacts);
       fetchContacts()
@@ -68,10 +87,38 @@ export const UserProvider = ({children}: UserProviderProps) => {
     }
   }
 
+  const editContact = async (updateUser: ContactInterface) => {
+    try {
+      const updateContacts = contacts.map(contact => 
+        contact.id === updateUser.id ? updateUser : contact
+      )
+      await AsyncStorage.setItem('contacts', JSON.stringify(updateContacts));
+      setContacts(updateContacts)
+    } catch (err) {
+      console.error('Error Edit a contact' + err);
+      return null
+    }
+  }
+
+  const deleteContact = async (id: number) => {
+    try {
+      const updateContacts = contacts.filter(
+        contact => contact.id !== id
+      )
+
+      await AsyncStorage.setItem('contacts', JSON.stringify(updateContacts));
+      setContacts(updateContacts)
+      await fetchContacts()
+    } catch (err) {
+      console.error('Error deleting a contact' + err);
+      return null
+    }
+  }
+
   const getContacts = () => (contacts && contacts.length > 0) ? contacts : null;
 
   return (
-    <UserContext.Provider value={{getUser, fetchContacts, getContacts, saveContact}}>
+    <UserContext.Provider value={{editContact, contacts, getUser, fetchContacts, getContacts, saveContact, deleteContact}}>
       {children}
     </UserContext.Provider>
   );
