@@ -2,30 +2,29 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './style';
 import InputComponent from '../../components/inputGeneric/input.component';
 import ButtonGenericComponent from '../../components/buttonGeneric/button.component';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import AddOrEditHook from '../../hooks/addOrEdit';
-import { useUser } from '../../context/userContext';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { ContactInterface } from '../../interface/contacts.interface';
+import {useRoute} from '@react-navigation/native';
+import {ContactInterface} from '../../interface/contacts.interface';
+import GenereicModalComponent from '../../components/genericModal/genericModal.component';
 
 const AddOrEditScreen = () => {
-  const {selectImg, img, setForm, form} = AddOrEditHook();
-  const [imgSelected, setImgSelected] = useState<string | null>(img);
-  const userContext = useUser()
-  const goTo = useNavigation()
-  const route = useRoute()
+  const route = useRoute();
+  const contactParams = route.params as ContactInterface | undefined;
 
-  const { id, name, number, address, email, secondNumber, img: imgPorfile, role } = route.params as ContactInterface
-
-  const handleNext = () => {
-    selectImg();
-    setImgSelected(img);
-  };
-
-  const handleSubmit = async () => {
-    await userContext.saveContact(form),
-    goTo.navigate('Home' as never)
-  }
+  //Contiene estado para manejar la imagen en el hook
+  const {
+    img,
+    setForm,
+    form,
+    handleEdit,
+    handleNext,
+    handleSubmit,
+    imgSelected,
+    setImgSelected,
+    setIsModalVisible,
+    isModalVisible
+  } = AddOrEditHook(contactParams);
 
   useEffect(() => {
     setImgSelected(img);
@@ -46,12 +45,38 @@ const AddOrEditScreen = () => {
       </View>
 
       <View style={styles.containerInputs}>
-        <InputComponent placeholder="Full Name" onChangeText={text => setForm('name', text)} />
-        <InputComponent placeholder="Number" onChangeText={text => setForm('number', text)}/>
-        <InputComponent placeholder="How is for you?" onChangeText={text => setForm('role', text)}/>
-        <InputComponent placeholder="Second Number" onChangeText={text => setForm('secondNumber', text)}/>
-        <InputComponent placeholder="Email" onChangeText={text => setForm('email', text)}/>
-        <InputComponent placeholder="Address" onChangeText={text => setForm('address', text)}/>
+        <InputComponent
+          placeholder={contactParams?.name ? contactParams?.name : `Full Name`}
+          onChangeText={text => setForm('name', text)}
+        />
+        <InputComponent
+          placeholder={contactParams?.number ? contactParams?.number : `Phone`}
+          onChangeText={text => setForm('number', text)}
+        />
+        <InputComponent
+          placeholder={
+            contactParams?.role ? contactParams?.role : `How is for you`
+          }
+          onChangeText={text => setForm('role', text)}
+        />
+        <InputComponent
+          placeholder={
+            contactParams?.secondNumber
+              ? contactParams?.secondNumber
+              : `Second phone`
+          }
+          onChangeText={text => setForm('secondNumber', text)}
+        />
+        <InputComponent
+          placeholder={contactParams?.email ? contactParams?.email : `Email`}
+          onChangeText={text => setForm('email', text)}
+        />
+        <InputComponent
+          placeholder={
+            contactParams?.address ? contactParams?.address : `Address`
+          }
+          onChangeText={text => setForm('address', text)}
+        />
       </View>
 
       <View style={styles.containerButtonConfirm}>
@@ -59,7 +84,18 @@ const AddOrEditScreen = () => {
           style={styles.imgButtonConfirm}
           source={require('../../assets/img/DrawKit_0091_Chubbs_Illustrations/sorprise.png')}
         />
-        <ButtonGenericComponent text="Confirmar" saveContact={handleSubmit}/>
+        <View>
+          <ButtonGenericComponent
+            text={!!contactParams?.name ? `Confirm Changes` : `Save`}
+            saveContact={
+              contactParams?.name
+                ? () => handleEdit(form)
+                : () => handleSubmit(form)
+            }
+          />
+
+          <GenereicModalComponent visible={isModalVisible} onClose={() => setIsModalVisible(false)} />
+        </View>
       </View>
     </View>
   );

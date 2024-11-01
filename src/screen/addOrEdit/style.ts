@@ -26,7 +26,8 @@ export const styles = StyleSheet.create({
     borderRadius: 120,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 2
+    borderWidth: 2,
+    elevation: 20
   },
   textButtonSelectImg: {
     fontSize: 20,
@@ -41,14 +42,15 @@ export const styles = StyleSheet.create({
   containerButtonConfirm: {
     flexDirection: 'row',
     width: width * 1,
+    justifyContent: 'flex-start'
   },
   imgButtonConfirm: {
-    width: width * 0.3,
-    height: height * 0.3,
+    width: width * 0.32,
+    height: height * 0.25,
     position: 'relative',
-    bottom: height * 0.20,
-    zIndex: -1,
-    marginLeft: 0.1,
+    bottom: height * 0.14,
+    zIndex: -2,
+    left: width * -0.04
   },
   imgSelected: {
     width: width * 0.57,
@@ -62,6 +64,7 @@ export const styles = StyleSheet.create({
     borderRadius: 120,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 2
+    borderWidth: 2,
+    elevation: 1
   }
 });

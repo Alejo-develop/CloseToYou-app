@@ -1,5 +1,5 @@
 import React from 'react';
-import {SectionList, View, Text, TouchableOpacity, Image} from 'react-native';
+import {SectionList, View, Text} from 'react-native';
 import {ContactInterface} from '../../interface/contacts.interface';
 import ContactCardComponent from '../contactCardComponent/contactCard.component';
 import {styles} from './styles';
@@ -33,7 +33,7 @@ const ContactList: React.FC<ContactListProps> = ({contacts}) => {
     <SectionList
       style={styles.containerList}
       sections={sections}
-      keyExtractor={item => item.number.toString()}
+      keyExtractor={item => item.id.toString()}
       renderItem={({item}) => (
         <View style={{alignItems: 'center', justifyContent: 'center', marginBottom: 15}}>
           <ContactCardComponent

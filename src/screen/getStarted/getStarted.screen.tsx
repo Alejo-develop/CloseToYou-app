@@ -2,11 +2,13 @@ import {Image, Text, View} from 'react-native';
 import {styles} from './style';
 import Onboarding from 'react-native-onboarding-swiper';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const GetStarted = () => {
   const goTo = useNavigation();
 
-  const handleEnd = () => {
+  const handleEnd = async () => {
+    await AsyncStorage.setItem('onboardingCompleted', 'true');
     goTo.navigate('Begin' as never);
   };
 
@@ -23,7 +25,7 @@ const GetStarted = () => {
             <View style={styles.firstScreen}>
               <View style={styles.companyName}>
                 <Text style={styles.h1}>
-                  Welcome to Touch<Text style={styles.span}>Connect</Text>
+                  Welcome to <Text style={styles.span}>CloseTo</Text>you
                 </Text>
                 <Text style={styles.slogan}>Connect, Organize, Simplify.</Text>
               </View>
@@ -54,7 +56,7 @@ const GetStarted = () => {
           subtitle: (
             <View style={styles.secondScreen}>
               <Text style={styles.description}>
-                In <Text style={styles.spanDescription}>TouchConnect</Text> you
+                In <Text style={styles.spanDescription}>CloseToYou</Text> you
                 can have the contacts you {'\n'}want in the
                 <Text style={styles.spanDescription}> easiest</Text>,{' '}
                 <Text style={styles.spanDescription}>safest</Text> and{' '}

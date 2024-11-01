@@ -2,22 +2,14 @@ import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './stylesChooseAvatar';
 import ButtonGenericComponent from '../../components/buttonGeneric/button.component';
 import {avatars} from '../../assets/avatars.data.ts';
-import {useState} from 'react';
 import UseFormBegin from '../../hooks/useFormBegin.tsx';
 import { useRoute } from '@react-navigation/native';
 import { UserInfoInterface } from '../../interface/user.interface.ts';
 
 const ChooseYourAvatar = () => {
-  const [avatarSelected, setAvatarSelected] = useState<string>(avatars[0].img);
-  const {img, setImg, handleNext} = UseFormBegin()
+  const {img, handleNext, avatarSelected, onPress} = UseFormBegin()
   const route = useRoute()
-
   const { name, email, phone } = route.params as UserInfoInterface
-  
-  const onPress = (img: string) =>{
-    setAvatarSelected(img)
-    setImg(img)
-  }
 
   const onNextPress = () => {
     handleNext({name, email, phone, img });

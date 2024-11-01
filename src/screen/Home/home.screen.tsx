@@ -3,31 +3,18 @@ import {styles} from './style.ts';
 import InputComponent from '../../components/inputGeneric/input.component.tsx';
 import AddContactButtonComponent from './components/addNewContact.component.tsx';
 import HomeScreenHook from '../../hooks/homeScreen.tsx';
-import {useCallback, useEffect, useState} from 'react';
-import {useUser} from '../../context/userContext.tsx';
-import {UserInfoInterface} from '../../interface/user.interface.ts';
-import {ContactInterface} from '../../interface/contacts.interface.ts';
+import {useCallback, useEffect} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import ContactList from '../../components/sectionlistComponent/sectionList.component.tsx';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = () => {
-  const {randomImg, getRandomAvatar, setRandomImg} = HomeScreenHook();
-  const [user, setUser] = useState<UserInfoInterface | null>(null);
-  const [contacts, setContacts] = useState<ContactInterface[] | null>(null);
-  const userContext = useUser();
-
-  const fetchData = async () => {
-    const contacts = await userContext.fetchContacts();
-    const user = await userContext.getUser();
-    setContacts(contacts);
-    setUser(user);
-  };  
+  const {randomImg, getRandomAvatar, setRandomImg, contacts, user, userContext, clearContacts, setContacts, fetchData} = HomeScreenHook();
 
   useFocusEffect(
     useCallback(() => {
       fetchData();
-      setRandomImg(getRandomAvatar()); 
+      // clearContacts( )
+      setRandomImg(getRandomAvatar());  
     }, []),
   ); 
 
@@ -39,8 +26,7 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.containerItemsHeader}>
-          <Text style={styles.titleSectionContact}>Search contacts </Text>
-
+        <Text style={styles.titleContainerSectionContacts}>Your Address Book <Text style={styles.titleSectionContactSpan}>{user?.name}</Text></Text>
           <InputComponent placeholder="Search someone..." />
 
           <AddContactButtonComponent />
@@ -70,7 +56,6 @@ const HomeScreen = () => {
 
         {contacts && contacts.length > 0 && (
           <View>
-            <Text style={styles.titleContainerSectionContacts}>Your Address Book <Text style={styles.titleSectionContactSpan}>{user?.name}</Text></Text>
             <ContactList contacts={contacts} />
           </View>
         )}

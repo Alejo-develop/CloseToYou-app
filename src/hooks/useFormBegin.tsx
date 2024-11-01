@@ -3,6 +3,7 @@ import {UserInfoInterface} from '../interface/user.interface';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import {avatars} from '../assets/avatars.data.ts';
 
 interface Props extends NativeStackScreenProps<any, any>{}
 const UseFormBegin = () => {
@@ -11,6 +12,7 @@ const UseFormBegin = () => {
   const [email, setEmail] = useState<string>('');
   const [img, setImg] = useState<string>('');
   const [infoUser, setInfoUser] = useState<UserInfoInterface>();
+  const [avatarSelected, setAvatarSelected] = useState<string>(avatars[0].img);
 
   const goTo = useNavigation<Props['navigation']>();
 
@@ -48,6 +50,11 @@ const UseFormBegin = () => {
     getInfoUserWithAvatar(newUser); 
   };
 
+  const onPress = (img: string) =>{
+    setAvatarSelected(img)
+    setImg(img)
+  }
+
   return {
     name,
     phone,
@@ -61,6 +68,9 @@ const UseFormBegin = () => {
     handleNext,
     validetInputs: getInfoUser,
     getInfoUserWithAvatar,
+    avatarSelected,
+    setAvatarSelected,
+    onPress
   };
 };
 

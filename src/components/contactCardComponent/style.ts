@@ -6,12 +6,16 @@ const {height} = Dimensions.get('screen')
 const styles = StyleSheet.create({
     cardContainer: {
         width: width * 0.85,
-        height: height * 0.06,
-        borderWidth: 3,
-        borderRadius: 30,
-        alignItems: 'center',
+        height: height * 0.1,  
+        backgroundColor: '#ffffff',  
+        borderRadius: 12,  
+        paddingVertical: height * 0.015,  
+        paddingHorizontal: width * 0.04,
         flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'space-between',
+
+        elevation: 6,
     },
     containerImg: {
         width: width * 0.1,
@@ -35,7 +39,7 @@ const styles = StyleSheet.create({
     },
     containerIcons: {
         flexDirection: 'row',
-        marginRight: width * 0.07,
+        marginRight: width * 0.04,
         gap: 18
     },
     icons:{

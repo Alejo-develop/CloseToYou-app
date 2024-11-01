@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
   containerItemsHeader: {
     alignItems: 'center',
     gap: 15,
+    justifyContent: 'center'
   },
   img: {
     width: width * 0.25,
@@ -40,14 +41,13 @@ export const styles = StyleSheet.create({
   containerContacts: {
     height: height * 0.73,
     alignItems: 'center',
-    padding: height * 0.05,
+    paddingTop: height * 0.015
   },
   titleContainerSectionContacts:{
     fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: height * 0.023,
+    fontSize: height * 0.019,
     color: 'black',
-    marginBottom: height * 0.02
   },
   containerNotContactsAviable: {
     height: height * 0.73,
