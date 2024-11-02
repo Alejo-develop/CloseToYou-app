@@ -38,12 +38,12 @@ export const UserProvider = ({children}: UserProviderProps) => {
         if (_contacts) {
           const contactData = JSON.parse(_contacts) as ContactInterface[];
           setContacts(contactData);
-          return contactData;
-        }
-  
+          return contactData; 
+        } 
+   
         return null;
       } catch (err) {
-        console.log(err);
+        console.log(err);  
         return null
       }
   };
@@ -58,7 +58,7 @@ export const UserProvider = ({children}: UserProviderProps) => {
       }
 
       return null;
-    } catch (err) {
+    } catch (err) { 
       console.log(err);
       return null
     }
@@ -67,15 +67,15 @@ export const UserProvider = ({children}: UserProviderProps) => {
   const saveContact = async (newContact: ContactInterface) =>{
     const genericUserUri = Image.resolveAssetSource(
       require('../assets/img/DrawKit_0091_Chubbs_Illustrations/genericUserPhoto.png')
-    ).uri;
+    ).uri; 
     const {img, role} = newContact
 
     const formatedContact = {
       ...newContact,
-      id: contacts.length + 1,
+      id: contacts.length + 1, 
       img: img ? img : genericUserUri,
       role: role ? role : 'Friend'
-    }
+    } 
     console.log(JSON.stringify(formatedContact));
     
 
@@ -96,18 +96,18 @@ export const UserProvider = ({children}: UserProviderProps) => {
       const updateContacts = contacts.map(contact => 
         contact.id === updateUser.id ? updateUser : contact
       )
-      await AsyncStorage.setItem('contacts', JSON.stringify(updateContacts));
+      await AsyncStorage.setItem('contacts', JSON.stringify(updateContacts)); 
       setContacts(updateContacts)
       fetchContacts()
-    } catch (err) {
-      console.error('Error Edit a contact' + err);
+    } catch (err) { 
+      console.error('Error Edit a contact' + err);  
     }
-  }
+  } 
 
   const deleteContact = async (id: number) => {
     try {
       const updateContacts = contacts.filter(
-        contact => contact.id !== id
+        contact => contact.id !== id  
       )
 
       await AsyncStorage.setItem('contacts', JSON.stringify(updateContacts));
@@ -124,7 +124,7 @@ export const UserProvider = ({children}: UserProviderProps) => {
   return (
     <UserContext.Provider value={{editContact, contacts, getUser, fetchContacts, getContacts, saveContact, deleteContact}}>
       {children}
-    </UserContext.Provider>
+    </UserContext.Provider> 
   );
 };
 

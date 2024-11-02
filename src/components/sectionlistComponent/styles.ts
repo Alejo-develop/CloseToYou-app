@@ -6,6 +6,9 @@ const {height} = Dimensions.get('screen')
 export const styles = StyleSheet.create({
     containerList: {
         width: width * 1,
+        marginTop: height * 0.06,
+        zIndex: -2,
+        flex: 1
     },
     containertextSeparator: {
         padding: height * 0.01

@@ -15,5 +15,5 @@ export interface ModalContactInfoProps{
   secondNumber: string | undefined;
   email: string | undefined;
   address: string | undefined;
-  img: string | undefined;
+  img: string;
 }

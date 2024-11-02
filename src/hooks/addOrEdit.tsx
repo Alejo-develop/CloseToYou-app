@@ -54,16 +54,18 @@ const AddOrEditHook = (contactParams?: ContactInterface) => {
       setIsModalVisible(true);
       return 
     }
-    await userContext.saveContact(form), goTo.navigate('Home' as never);
+    await userContext.saveContact(form)
+    goTo.goBack();
 
   };
 
   const handleEdit = async (form: ContactInterface) => {
     if (form.name) {
-      await userContext.editContact(form), goTo.navigate('Home' as never);
+      await userContext.editContact(form) 
+      goTo.goBack();
     }
 
-    goTo.navigate('Home' as never);
+    goTo.goBack();
   };
 
   const handleNext = () => {

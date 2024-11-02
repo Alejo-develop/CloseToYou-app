@@ -20,7 +20,7 @@ const GetStarted = () => {
       pages={[
         {
           backgroundColor: '#FFFFFF',
-          image: <Image />,
+          image: <View style={{ width: 0, height: 0 }} />,
           title: (
             <View style={styles.firstScreen}>
               <View style={styles.companyName}>
