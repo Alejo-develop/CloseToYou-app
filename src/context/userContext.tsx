@@ -17,7 +17,7 @@ interface UserContextProps {
   deleteContact: (id: number) => void,
   editContact: (updateUser: ContactInterface) => Promise<void>
 }
-
+ 
 const UserContext = createContext<UserContextProps>({
   getUser: async () => null,
   contacts: null,
@@ -40,7 +40,7 @@ export const UserProvider = ({children}: UserProviderProps) => {
           setContacts(contactData);
           return contactData; 
         } 
-   
+    
         return null;
       } catch (err) {
         console.log(err);  
@@ -75,7 +75,7 @@ export const UserProvider = ({children}: UserProviderProps) => {
       id: contacts.length + 1, 
       img: img ? img : genericUserUri,
       role: role ? role : 'Friend'
-    } 
+    }  
     console.log(JSON.stringify(formatedContact));
     
 
@@ -83,11 +83,11 @@ export const UserProvider = ({children}: UserProviderProps) => {
       const updateContacts = [...contacts, formatedContact];
       await AsyncStorage.setItem('contacts', JSON.stringify(updateContacts));
       setContacts(updateContacts);
-      fetchContacts()
+      fetchContacts() 
     } catch (err) {
       console.error(err);
     }
-  }
+  } 
 
   const editContact = async (updateUser: ContactInterface) => {
     try {

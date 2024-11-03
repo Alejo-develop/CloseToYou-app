@@ -5,7 +5,19 @@ import ButtonGenericComponent from '../../components/buttonGeneric/button.compon
 import UseFormBegin from '../../hooks/useFormBegin';
 
 const BeginForm = () => {
-  const { name, setName, phone, setPhone, email, setEmail, validetInputs } = UseFormBegin()
+  const {
+    name,
+    setName,
+    phone,
+    setPhone,
+    email,
+    setEmail,
+    validetInputs,
+    setSecondNumber,
+    setAddress,
+    secondNumber,
+    address,
+  } = UseFormBegin();
 
   return (
     <View style={styles.container}>
@@ -17,12 +29,34 @@ const BeginForm = () => {
       <Text style={styles.titleScreen}>Let's start by taking some data...</Text>
 
       <View style={styles.containerInputs}>
-        <InputComponent value={name} onChangeText={setName} placeholder='Name'/>
-        <InputComponent value={phone} onChangeText={setPhone} placeholder='Number'/>
-        <InputComponent value={email} onChangeText={setEmail} placeholder='Email'/>
+        <InputComponent
+          value={name}
+          onChangeText={setName}
+          placeholder="Name"
+        />
+        <InputComponent
+          value={phone}
+          onChangeText={setPhone}
+          placeholder="Phone"
+        />
+        <InputComponent
+          value={email}
+          onChangeText={setEmail}
+          placeholder="Email"
+        />
+        <InputComponent
+          value={secondNumber}
+          onChangeText={setSecondNumber}
+          placeholder="Second Phone"
+        />
+        <InputComponent
+          value={address}
+          onChangeText={setAddress}
+          placeholder="Address"
+        />
       </View>
 
-      <ButtonGenericComponent text='Next' saveContact={validetInputs}/>
+      <ButtonGenericComponent text="Next" saveContact={validetInputs} />
     </View>
   );
 };

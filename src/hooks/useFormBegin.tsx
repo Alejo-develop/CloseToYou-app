@@ -10,6 +10,8 @@ const UseFormBegin = () => {
   const [name, setName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [secondNumber, setSecondNumber] = useState<string>('');
+  const [address, setAddress] = useState<string>('');
   const [img, setImg] = useState<string>('');
   const [infoUser, setInfoUser] = useState<UserInfoInterface>();
   const [avatarSelected, setAvatarSelected] = useState<string>(avatars[0].img);
@@ -21,7 +23,7 @@ const UseFormBegin = () => {
       console.log('All fields are required');
       return;
     }
-    setInfoUser({name, phone, email});
+    setInfoUser({name, phone, email, address, secondNumber});
 
     goTo.navigate('ChooseAvatar', {name, phone, email});
   };
@@ -38,19 +40,20 @@ const UseFormBegin = () => {
     try {
       await AsyncStorage.setItem('userInfo', JSON.stringify(user));
       
-      goTo.navigate('Home' as never);
+      goTo.navigate('Main' as never);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleNext = ({ name, email, phone, img }: UserInfoInterface) => {
-    const newUser = { name, email, phone, img};
+  const handleNext = ({ name, email, phone, img, address, secondNumber }: UserInfoInterface) => {
+    const newUser = { name, email, phone, img: img, address, secondNumber};
     
     getInfoUserWithAvatar(newUser); 
   };
 
-  const onPress = (img: string) =>{
+  const onPress = (index: any, img: string) =>{ 
+    const selectedImg = avatars[index]?.img || '';
     setAvatarSelected(img)
     setImg(img)
   }
@@ -62,6 +65,10 @@ const UseFormBegin = () => {
     setName,
     setPhone,
     setEmail,
+    address,
+    setAddress,
+    secondNumber,
+    setSecondNumber,
     img,
     infoUser,
     setImg,

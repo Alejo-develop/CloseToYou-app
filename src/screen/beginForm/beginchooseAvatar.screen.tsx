@@ -9,10 +9,10 @@ import { UserInfoInterface } from '../../interface/user.interface.ts';
 const ChooseYourAvatar = () => {
   const {img, handleNext, avatarSelected, onPress} = UseFormBegin()
   const route = useRoute()
-  const { name, email, phone } = route.params as UserInfoInterface
+  const { name, email, phone, secondNumber, address } = route.params as UserInfoInterface
 
   const onNextPress = () => {
-    handleNext({name, email, phone, img });
+    handleNext({name, email, phone, img, secondNumber, address });
   };
 
 
@@ -30,7 +30,7 @@ const ChooseYourAvatar = () => {
       <View style={styles.containerAvatars}>
         {avatars.map((data, index) => (
           <TouchableOpacity key={index.toString()}
-          onPress={() => onPress(data.img)}>
+          onPress={() => onPress(index, data.img)}>
             <Image
               key={index}
               source={data.img}
