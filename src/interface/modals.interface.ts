@@ -17,3 +17,8 @@ export interface ModalContactInfoProps{
   address: string | undefined;
   img: string;
 }
+
+export interface ModalChangePhotoProps{
+  visible: boolean;
+  onClose: () => void
+}

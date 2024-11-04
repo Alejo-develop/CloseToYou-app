@@ -2,6 +2,7 @@
     "conventionalCommits.scopes": [
         "Build Project, and first commit",
         "Home screen and logic",
-        "Modals"
+        "Modals",
+        "Settings porfile screen"
     ]
 }

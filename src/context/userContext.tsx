@@ -75,7 +75,7 @@ export const UserProvider = ({children}: UserProviderProps) => {
       id: contacts.length + 1, 
       img: img ? img : genericUserUri,
       role: role ? role : 'Friend'
-    }  
+    }    
     console.log(JSON.stringify(formatedContact));
     
 

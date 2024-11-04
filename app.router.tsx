@@ -40,31 +40,31 @@ const MyTabs = () => (
 );
 
 const MyStack = () => {
-    // const [isFirstLaunch, setIsFirstLaunch] = React.useState<boolean | null>(null);
+    const [isFirstLaunch, setIsFirstLaunch] = React.useState<boolean | null>(null);
   
-    // React.useEffect(() => {
-    //   const checkFirstLaunch = async () => {
-    //     const hasCompletedOnboarding = await AsyncStorage.getItem('onboardingCompleted');
-    //     setIsFirstLaunch(hasCompletedOnboarding === null);
-    //   };
+    React.useEffect(() => {
+      const checkFirstLaunch = async () => {
+        const hasCompletedOnboarding = await AsyncStorage.getItem('onboardingCompleted');
+        setIsFirstLaunch(hasCompletedOnboarding === null);
+      };
   
-    //   checkFirstLaunch();
-    // }, []);
+      checkFirstLaunch();
+    }, []);
   
-    // if (isFirstLaunch === null) {
-    //   return null;
-    // } 
+    if (isFirstLaunch === null) {
+      return null;
+    } 
 
   return (
     <UserProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName={ 'GetStarted' }>
-        {/* <Stack.Navigator initialRouteName={isFirstLaunch ? 'GetStarted' : 'Main'}> */}
+        {/* <Stack.Navigator initialRouteName={ 'GetStarted' }> */}
+        <Stack.Navigator initialRouteName={isFirstLaunch ? 'GetStarted' : 'Main'}>
           <Stack.Screen
             name="GetStarted"
             component={GetStartedScreen}
             options={{headerShown: false}}
-          />
+          /> 
           <Stack.Screen
             name="Begin"
             component={BeginForm}

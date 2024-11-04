@@ -5,7 +5,7 @@ const {height} = Dimensions.get('screen');
 
 export const styles = StyleSheet.create({
   container: {
-    height: height * 1,
+    height: height * 0.95,
     width: width * 1,
     justifyContent: 'center',
     alignItems: 'center',

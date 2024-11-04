@@ -110,7 +110,7 @@ const GetStarted = () => {
           subtitle: (
             <View style={styles.secondScreen}>
               <Text style={styles.description}>
-                Even if no one else can see it, we know you like{'\n'} to see <Text style={styles.spanDescription}>your porfile</Text> in the app you are in, try it!
+                Even if no one else can see it, we know you like{'\n'} to see <Text style={styles.spanDescription}>your profile</Text> in the app you are in, try it!
               </Text>
             </View>
           ),

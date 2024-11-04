@@ -5,6 +5,7 @@ import {avatars} from '../../assets/avatars.data.ts';
 import UseFormBegin from '../../hooks/useFormBegin.tsx';
 import { useRoute } from '@react-navigation/native';
 import { UserInfoInterface } from '../../interface/user.interface.ts';
+import ContainerAvatarsComponent from '../../components/containerAvatars/containerAvatars.component.tsx';
 
 const ChooseYourAvatar = () => {
   const {img, handleNext, avatarSelected, onPress} = UseFormBegin()
@@ -27,18 +28,12 @@ const ChooseYourAvatar = () => {
         </View>
       </View>
 
-      <View style={styles.containerAvatars}>
-        {avatars.map((data, index) => (
-          <TouchableOpacity key={index.toString()}
-          onPress={() => onPress(index, data.img)}>
-            <Image
-              key={index}
-              source={data.img}
-              style={styles.avatarsSelect}
-            />
-          </TouchableOpacity>
-        ))}
-      </View>
+      <ContainerAvatarsComponent
+        avatars={avatars}  
+        styleContainer={styles.containerAvatars}
+        styleAvatar={styles.avatarsSelect}
+        onPress={(onPress)}    
+      />
 
       <ButtonGenericComponent text="Next" saveContact={onNextPress} />
     </View>
