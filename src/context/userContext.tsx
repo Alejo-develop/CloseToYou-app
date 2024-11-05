@@ -6,7 +6,7 @@ import { Image } from 'react-native';
 
 interface UserProviderProps {
   children: React.ReactNode;
-}
+} 
 
 interface UserContextProps {
   getUser: () => Promise<UserInfoInterface | null>;

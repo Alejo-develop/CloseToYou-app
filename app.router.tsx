@@ -9,16 +9,18 @@ import {UserProvider} from './src/context/userContext';
 import AddOrEditScreen from './src/screen/addOrEdit/addOrEditContact.screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SettingsPorfileScreen from './src/screen/settingsUser/settingsUser.screen';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import TabBarIcon from './src/navigation/tabBarIcon';
-import { MainTabParamList } from './src/navigation/navigation.type';
+import {MainTabParamList} from './src/navigation/navigation.type';
+import SignUpScreen from './src/screen/signUp/signUp.screen';
+import LoginScreen from './src/screen/login/login.screen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator<MainTabParamList>();
 const MyTabs = () => (
   <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ color, size }) => (
+    screenOptions={({route}) => ({
+      tabBarIcon: ({color, size}) => (
         <TabBarIcon routeName={route.name} color={color} size={size} />
       ),
       tabBarActiveTintColor: 'white',
@@ -40,31 +42,37 @@ const MyTabs = () => (
 );
 
 const MyStack = () => {
-    const [isFirstLaunch, setIsFirstLaunch] = React.useState<boolean | null>(null);
-  
-    React.useEffect(() => {
-      const checkFirstLaunch = async () => {
-        const hasCompletedOnboarding = await AsyncStorage.getItem('onboardingCompleted');
-        setIsFirstLaunch(hasCompletedOnboarding === null);
-      };
-  
-      checkFirstLaunch();
-    }, []);
-  
-    if (isFirstLaunch === null) {
-      return null;
-    } 
+  const [isFirstLaunch, setIsFirstLaunch] = React.useState<boolean | null>(
+    null,
+  );
+
+  React.useEffect(() => {
+    const checkFirstLaunch = async () => {
+      const hasCompletedOnboarding = await AsyncStorage.getItem(
+        'onboardingCompleted',
+      );
+      setIsFirstLaunch(hasCompletedOnboarding === null);
+    };
+
+    checkFirstLaunch();
+  }, []);
+
+  if (isFirstLaunch === null) {
+    return null;
+  }
 
   return (
     <UserProvider>
       <NavigationContainer>
         {/* <Stack.Navigator initialRouteName={ 'GetStarted' }> */}
-        <Stack.Navigator initialRouteName={isFirstLaunch ? 'GetStarted' : 'Main'}>
+         <Stack.Navigator initialRouteName={ 'SignUp' }>
+        {/* <Stack.Navigator
+          initialRouteName={isFirstLaunch ? 'GetStarted' : 'Main'}> */}
           <Stack.Screen
             name="GetStarted"
             component={GetStartedScreen}
             options={{headerShown: false}}
-          /> 
+          />
           <Stack.Screen
             name="Begin"
             component={BeginForm}
@@ -75,10 +83,20 @@ const MyStack = () => {
             component={ChooseYourAvatar}
             options={{headerShown: false}}
           />
-           <Stack.Screen
-          name="Main"
-          component={MyTabs}
-          options={{headerShown: false}}
+          <Stack.Screen
+            name='SignUp'
+            component={SignUpScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name='Login'
+            component={LoginScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Main"
+            component={MyTabs}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="Home"
@@ -86,7 +104,7 @@ const MyStack = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="Porfile"
+            name="Profile"
             component={SettingsPorfileScreen}
             options={{headerShown: false}}
           />

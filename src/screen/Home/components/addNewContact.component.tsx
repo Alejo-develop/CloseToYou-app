@@ -30,14 +30,23 @@ const AddContactButtonComponent = () => {
 
 const styles = StyleSheet.create({
   button: {
-    borderWidth: 3,
-    borderColor: '#79169D',
+    backgroundColor: '#79169D', 
     borderRadius: 25,
     width: width * 0.5,
+    paddingVertical: 4,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5, 
   },
   textButton: {
     textAlign: 'center',
-    color: 'black',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+    letterSpacing: 0.8,
   },
 });
 

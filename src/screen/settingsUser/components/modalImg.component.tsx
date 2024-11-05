@@ -80,13 +80,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     borderWidth: 3,
-    paddingTop: 5,
     marginBottom: 20,
     gap: 10,
   },
   avatar: {
-    width: 90,
-    height: height * 0.09,
+    width: width * 0.24,
+    height: height * 0.093,
   },
   containerButtons: {
     flexDirection: 'row',
