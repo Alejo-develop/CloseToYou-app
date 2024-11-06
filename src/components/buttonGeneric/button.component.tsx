@@ -2,10 +2,10 @@ import { Text, TouchableOpacity, View } from "react-native"
 import { styles } from "./style"
 import { ButtonGenericProps } from "../../interface/buttonGeneric.interface"
 
-const ButtonGenericComponent = ({ text, saveContact }: ButtonGenericProps) =>{
+const ButtonGenericComponent = ({ text, onPress }: ButtonGenericProps) =>{
     return(
         <View>
-            <TouchableOpacity style={styles.button} onPress={saveContact} >
+            <TouchableOpacity style={styles.button} onPress={onPress} >
                 <Text style={styles.buttonContent}>
                     {text}
                 </Text>

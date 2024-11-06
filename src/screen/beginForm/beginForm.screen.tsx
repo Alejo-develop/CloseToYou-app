@@ -56,7 +56,7 @@ const BeginForm = () => {
         />
       </View>
 
-      <ButtonGenericComponent text="Next" saveContact={validetInputs} />
+      <ButtonGenericComponent text="Next" onPress={validetInputs} />
     </View>
   );
 };

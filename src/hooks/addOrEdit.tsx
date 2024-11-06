@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import * as ImagePicker from 'react-native-image-picker';
 import {ContactInterface} from '../interface/contacts.interface';
-import {useUser} from '../context/userContext';
+import {useAuth} from '../context/authContext';
 import {useNavigation} from '@react-navigation/native';
 
 const AddOrEditHook = (contactParams?: ContactInterface) => {
@@ -27,7 +27,7 @@ const AddOrEditHook = (contactParams?: ContactInterface) => {
       [field]: value,
     }));
   };
-  const userContext = useUser();
+  const userContext = useAuth();
   const goTo = useNavigation();
 
   const selectImg = () => {

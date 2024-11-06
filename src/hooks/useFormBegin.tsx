@@ -39,6 +39,7 @@ const UseFormBegin = () => {
   const saveInfoUser = async (user: UserInfoInterface) => {
     try {
       await AsyncStorage.setItem('userInfo', JSON.stringify(user));
+      await AsyncStorage.setItem('onboardingCompleted', 'true');
       
       goTo.navigate('Main' as never);
     } catch (err) {

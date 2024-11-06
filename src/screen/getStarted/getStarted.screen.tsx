@@ -2,14 +2,13 @@ import {Image, Text, View} from 'react-native';
 import {styles} from './style';
 import Onboarding from 'react-native-onboarding-swiper';
 import {useNavigation} from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { RootStackParamList } from '../../types/navigation.type';
 
 const GetStarted = () => {
-  const goTo = useNavigation();
+  const goTo = useNavigation<RootStackParamList>();
 
   const handleEnd = async () => {
-    await AsyncStorage.setItem('onboardingCompleted', 'true');
-    goTo.navigate('Begin' as never);
+    goTo.navigate('Login');
   };
 
   return (

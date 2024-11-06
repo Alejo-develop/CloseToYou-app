@@ -87,7 +87,7 @@ const AddOrEditScreen = () => {
         <View>
           <ButtonGenericComponent
             text={!!contactParams?.name ? `Confirm Changes` : `Save`}
-            saveContact={
+            onPress={
               contactParams?.name
                 ? () => handleEdit(form)
                 : () => handleSubmit(form)

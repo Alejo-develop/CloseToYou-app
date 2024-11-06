@@ -6,9 +6,10 @@ import HomeScreenHook from '../../hooks/homeScreen.tsx';
 import {useCallback, useEffect} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import ContactList from '../../components/sectionlistComponent/sectionList.component.tsx';
+import ButtonGenericComponent from '../../components/buttonGeneric/button.component.tsx';
 
 const HomeScreen = () => {
-  const {randomImg, getRandomAvatar, setRandomImg, contacts, user, userContext, clearContacts, setContacts, fetchData} = HomeScreenHook();
+  const {randomImg, getRandomAvatar, setRandomImg, signOut, contacts, user, userContext, clearContacts, setContacts, fetchData} = HomeScreenHook();
 
   useFocusEffect(
     useCallback(() => {
@@ -30,6 +31,7 @@ const HomeScreen = () => {
           <InputComponent placeholder="Search someone..." />
 
           <AddContactButtonComponent />
+          <ButtonGenericComponent text='Sign Out' onPress={() => signOut()}/>
         </View>
         <View>
           <Image source={randomImg as any} style={styles.img} />

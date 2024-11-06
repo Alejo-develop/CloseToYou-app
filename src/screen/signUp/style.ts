@@ -30,6 +30,10 @@ export const styles = StyleSheet.create({
   header:{
     gap: 5
   },
+  errMessage: {
+    color: '#79169D',
+    fontSize: height * 0.02
+  },
   title: {
     fontSize: height * 0.036,
     fontWeight: 'bold',

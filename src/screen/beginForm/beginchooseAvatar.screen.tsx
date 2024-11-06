@@ -35,7 +35,7 @@ const ChooseYourAvatar = () => {
         onPress={(onPress)}    
       />
 
-      <ButtonGenericComponent text="Next" saveContact={onNextPress} />
+      <ButtonGenericComponent text="Next" onPress={onNextPress} />
     </View>
   );
 };

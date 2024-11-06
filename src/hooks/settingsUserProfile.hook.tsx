@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {useUser} from '../context/userContext';
+import {useAuth} from '../context/authContext';
 import {UserInfoInterface} from '../interface/user.interface';
 
 const SettingsUserProfileHook = () => {
@@ -7,7 +7,7 @@ const SettingsUserProfileHook = () => {
   const [imgUser, setImgUser] = useState<string>('');
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
-  const userContext = useUser();
+  const userContext = useAuth();
 
   const fetchUser = async () => {
     const user = await userContext.getUser();

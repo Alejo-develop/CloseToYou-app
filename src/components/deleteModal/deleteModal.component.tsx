@@ -27,8 +27,8 @@ const DeleteModalComponent = ({
           </View>
 
           <View style={styles.containerButtons}>
-            <ButtonGenericComponent text="Back" saveContact={onClose} />
-            <ButtonGenericComponent text="Confirm" saveContact={onConfirm} />
+            <ButtonGenericComponent text="Back" onPress={onClose} />
+            <ButtonGenericComponent text="Confirm" onPress={onConfirm} />
           </View>
         </View>
       </View>

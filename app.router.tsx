@@ -5,7 +5,7 @@ import GetStartedScreen from './src/screen/getStarted/getStarted.screen';
 import HomeScreen from './src/screen/Home/home.screen';
 import BeginForm from './src/screen/beginForm/beginForm.screen';
 import ChooseYourAvatar from './src/screen/beginForm/beginchooseAvatar.screen';
-import {UserProvider} from './src/context/userContext';
+import {AuthProvider, useAuth} from './src/context/authContext';
 import AddOrEditScreen from './src/screen/addOrEdit/addOrEditContact.screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SettingsPorfileScreen from './src/screen/settingsUser/settingsUser.screen';
@@ -42,6 +42,9 @@ const MyTabs = () => (
 );
 
 const MyStack = () => {
+  const auth = useAuth()
+  const isLog = auth.isAuth
+
   const [isFirstLaunch, setIsFirstLaunch] = React.useState<boolean | null>(
     null,
   );
@@ -62,12 +65,12 @@ const MyStack = () => {
   }
 
   return (
-    <UserProvider>
+    <AuthProvider>
       <NavigationContainer>
         {/* <Stack.Navigator initialRouteName={ 'GetStarted' }> */}
-         <Stack.Navigator initialRouteName={ 'SignUp' }>
-        {/* <Stack.Navigator
-          initialRouteName={isFirstLaunch ? 'GetStarted' : 'Main'}> */}
+         {/* <Stack.Navigator initialRouteName={ 'SignUp' }> */}
+        <Stack.Navigator
+          initialRouteName={isFirstLaunch ? 'GetStarted' : isLog ? 'Main' : 'Login'}>
           <Stack.Screen
             name="GetStarted"
             component={GetStartedScreen}
@@ -115,7 +118,7 @@ const MyStack = () => {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </UserProvider>
+    </AuthProvider>
   );
 };
 

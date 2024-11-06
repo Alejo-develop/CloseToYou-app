@@ -25,7 +25,7 @@ const GenereicModalComponent = ({
           </View>
 
           <View style={styles.containerButtons}>
-            <ButtonGenericComponent text="Ok" saveContact={onClose} />
+            <ButtonGenericComponent text="Ok" onPress={onClose} />
           </View>
         </View>
       </View>

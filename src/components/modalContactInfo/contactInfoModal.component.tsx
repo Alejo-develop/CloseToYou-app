@@ -91,7 +91,7 @@ const ContactInfoModalComponent = ({
                 <Text style={styles.titleMap}>mapa</Text>
               </View>
             </View>
-            <ButtonOkComponent text="Ok" saveContact={onClose} />
+            <ButtonOkComponent text="Ok" onPress={onClose} />
           </View>
 
           <DeleteModalComponent

@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
-import { useUser } from '../../context/userContext';
+import { useAuth } from '../../context/authContext';
 import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
 import { ContactInterface } from '../../interface/contacts.interface';
 import { Linking } from 'react-native';
@@ -12,7 +12,7 @@ const ContactCardHook = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isModalInfoVisible, setIsModalInfoVisible] = useState<boolean>(false);
   const [selectedContactId, setSelectedContactId] = useState<number | null>(null); 
-  const userContext = useUser();
+  const userContext = useAuth();
   const goTo = useNavigation<Props['navigation']>();
   const isFocused = useIsFocused();
 
