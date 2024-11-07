@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../types/navigation.type';
 import { LoginInterface } from '../interface/user.interface';
 import { useState } from 'react';
-import { loginService } from '../services/auth.services';
+import { isFirstLaunchService, loginService } from '../services/auth.services';
 import { ErrorResponseInterface } from '../interface/auth.interface';
 import { useAuth } from '../context/authContext';
 
@@ -13,6 +13,10 @@ const LoginHook = () => {
   }
   const [form, setForm] = useState<LoginInterface>(initialForm)
   const [error, setError] = useState<string>('');
+  const [isFirstLaunch, setIsFirstLaunch] = useState<boolean | null>(
+    null,
+  );
+
   const goTo = useNavigation<RootStackParamList>();
 
   const auth = useAuth()
@@ -40,7 +44,15 @@ const LoginHook = () => {
       const token = res.data?.token
       auth.saveSessionInfo(token)
       setError('')
-      goTo.navigate('Main')
+
+      await getIsFirstLaunch();
+
+      if(isFirstLaunch === null){
+        goTo.navigate('Begin')  
+        return
+      }
+
+      goTo.navigate('Begin')
     } catch (err: any) {
       const apiError = err.response?.data as ErrorResponseInterface;
       if (apiError?.message) {
@@ -51,12 +63,19 @@ const LoginHook = () => {
     }
   }
 
+  const getIsFirstLaunch = async () =>{
+    const res = await isFirstLaunchService()
+
+    setIsFirstLaunch(res)
+  }
+
   return {
     goToSignUp,
     form,
     error,
     handleFormChange,
-    login
+    login,
+    getIsFirstLaunch
   };
 };
 

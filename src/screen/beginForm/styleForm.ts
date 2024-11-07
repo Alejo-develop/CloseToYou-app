@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     height: height * 0.45
   },
   titleScreen: {
-    fontSize: height * 0.025,
+    fontSize: height * 0.02,
     textAlign: 'center',
     fontWeight: 'bold',
     color: '#000000',

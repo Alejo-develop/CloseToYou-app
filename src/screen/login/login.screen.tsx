@@ -4,9 +4,15 @@ import InputComponent from '../../components/inputGeneric/input.component.tsx';
 import LoginHook from '../../hooks/login.tsx';
 import HeaderComponent from './components/header.component.tsx';
 import FooterComponent from './components/footer.component.tsx';
+import { useEffect } from 'react';
 
 const LoginScreen = () => {
-  const {goToSignUp, form, error, handleFormChange, login} = LoginHook();
+  const {goToSignUp, form, error, handleFormChange, login, getIsFirstLaunch} = LoginHook();
+
+  useEffect(() => {
+    getIsFirstLaunch();
+  }, []);
+
 
   return (
     <View style={styles.container}>

@@ -55,6 +55,7 @@ const MyStack = () => {
         'onboardingCompleted',
       );
       setIsFirstLaunch(hasCompletedOnboarding === null);
+      await AsyncStorage.clear();
     };
 
     checkFirstLaunch();
@@ -123,3 +124,57 @@ const MyStack = () => {
 };
 
 export default MyStack;
+
+// <AuthProvider>
+// <NavigationContainer>
+//    {/* <Stack.Navigator initialRouteName={ 'SignUp' }> */}
+//   <Stack.Navigator
+//     initialRouteName={isFirstLaunch ? 'GetStarted' : isLog ? 'Main' : 'Login'}>
+//     <Stack.Screen
+//       name="GetStarted"
+//       component={GetStartedScreen}
+//       options={{headerShown: false}}
+//     />
+//     <Stack.Screen
+//       name="Begin"
+//       component={BeginForm}
+//       options={{headerShown: false}}
+//     />
+//     <Stack.Screen
+//       name="ChooseAvatar"
+//       component={ChooseYourAvatar}
+//       options={{headerShown: false}}
+//     />
+//     <Stack.Screen
+//       name='SignUp'
+//       component={SignUpScreen}
+//       options={{headerShown: false}}
+//     />
+//     <Stack.Screen
+//       name='Login'
+//       component={LoginScreen}
+//       options={{headerShown: false}}
+//     />
+//     <Stack.Screen
+//       name="Main"
+//       component={MyTabs}
+//       options={{headerShown: false}}
+//     />
+//     <Stack.Screen
+//       name="Home"
+//       component={HomeScreen}
+//       options={{headerShown: false}}
+//     />
+//     <Stack.Screen
+//       name="Profile"
+//       component={SettingsPorfileScreen}
+//       options={{headerShown: false}}
+//     />
+//     <Stack.Screen
+//       name="Form"
+//       component={AddOrEditScreen}
+//       options={{headerShown: false}}
+//     />
+//   </Stack.Navigator>
+// </NavigationContainer>
+// </AuthProvider>

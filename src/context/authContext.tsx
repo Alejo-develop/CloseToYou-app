@@ -25,7 +25,7 @@ const AuthContext = createContext<AuthContextProps>({
   getUser: async () => null,
   contacts: null,
   fetchContacts: async () => null,
-  getContacts: () => null,
+  getContacts: () => null, 
   saveContact: async () => {},
   deleteContact: async () => {},
   editContact: async () => {},
@@ -51,7 +51,7 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
     await AsyncStorage.removeItem('accesstoken');  
 
     return;
-  };
+  }; 
 
   const fetchContacts = async () => {
     try {
@@ -81,7 +81,7 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
       return null;
     } catch (err) {
       console.log(err); 
-      return null; 
+      return null;  
     }
   };
 
@@ -108,14 +108,14 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
       console.error(err);
     }
   };
-
+ 
   const editContact = async (updateUser: ContactInterface) => {
     try {
       console.log(updateUser.id);
 
       const updateContacts = contacts.map(contact =>
         contact.id === updateUser.id ? updateUser : contact,
-      );
+      );  
       await AsyncStorage.setItem('contacts', JSON.stringify(updateContacts));
       setContacts(updateContacts);
       fetchContacts();
@@ -133,7 +133,7 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
       await fetchContacts();
     } catch (err) {
       console.error('Error deleting a contact' + err);
-      return null;
+      return null; 
     }
   };
 

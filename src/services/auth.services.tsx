@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {LoginInterface, SignUpInterface} from '../interface/user.interface';
 import { BASE_URL } from '../assets/constanst';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const signUpService = async (user: SignUpInterface) => {
   try {
@@ -23,3 +24,16 @@ export const loginService = async (user: LoginInterface) => {
     throw err;
   }
 };
+
+export const isFirstLaunchService = async () => {
+  try {
+    const hasCompletedOnboarding = await AsyncStorage.getItem(
+      'onboardingCompleted',
+    );
+    
+    return hasCompletedOnboarding === null
+  } catch (err) {
+    console.error(err);
+    throw err
+  }
+}

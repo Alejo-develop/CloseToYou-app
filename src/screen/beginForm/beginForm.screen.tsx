@@ -26,28 +26,23 @@ const BeginForm = () => {
         source={require('../../assets/img/DrawKit_0091_Chubbs_Illustrations/chubbConstructor.png')}
       />
 
-      <Text style={styles.titleScreen}>Let's start by taking some data...</Text>
+      <Text style={styles.titleScreen}>Let's start by taking some data before start...</Text>
 
       <View style={styles.containerInputs}>
         <InputComponent
           value={name}
           onChangeText={setName}
-          placeholder="Name"
+          placeholder="Second Name"
         />
         <InputComponent
           value={phone}
           onChangeText={setPhone}
-          placeholder="Phone"
+          placeholder="Last Name"
         />
         <InputComponent
           value={email}
           onChangeText={setEmail}
-          placeholder="Email"
-        />
-        <InputComponent
-          value={secondNumber}
-          onChangeText={setSecondNumber}
-          placeholder="Second Phone"
+          placeholder="Phone"
         />
         <InputComponent
           value={address}
