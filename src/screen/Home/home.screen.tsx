@@ -6,35 +6,31 @@ import HomeScreenHook from '../../hooks/homeScreen.tsx';
 import {useCallback, useEffect} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 import ContactList from '../../components/sectionlistComponent/sectionList.component.tsx';
-import ButtonGenericComponent from '../../components/buttonGeneric/button.component.tsx';
+import SignOutButtonComponent from './components/signOut.component.tsx';
 
 const HomeScreen = () => {
-  const {randomImg, getRandomAvatar, setRandomImg, signOut, contacts, user, userContext, clearContacts, setContacts, fetchData} = HomeScreenHook();
+  const {
+    signOut,
+    contacts,
+    fetchData,
+  } = HomeScreenHook();
 
   useFocusEffect(
     useCallback(() => {
       fetchData();
-      // clearContacts( )
-      setRandomImg(getRandomAvatar());  
     }, []),
-  ); 
+  );
 
-  useEffect(() => {
-    setContacts(userContext.contacts);
-  }, [userContext.contacts]);
+  useEffect(() => {}, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.containerItemsHeader}>
-        <Text style={styles.titleContainerSectionContacts}>Your Address Book <Text style={styles.titleSectionContactSpan}>{user?.name}</Text></Text>
-          <InputComponent placeholder="Search someone..." />
+        <InputComponent placeholder="Search someone..." />
 
+        <View style={styles.buttonsHeader}>
           <AddContactButtonComponent />
-          <ButtonGenericComponent text='Sign Out' onPress={() => signOut()}/>
-        </View>
-        <View>
-          <Image source={randomImg as any} style={styles.img} />
+          <SignOutButtonComponent onPress={() => signOut()} />
         </View>
       </View>
       <View

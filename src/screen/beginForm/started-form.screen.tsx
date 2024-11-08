@@ -6,17 +6,15 @@ import UseFormBegin from '../../hooks/useFormBegin';
 
 const BeginForm = () => {
   const {
-    name,
-    setName,
     phone,
     setPhone,
-    email,
-    setEmail,
     validetInputs,
-    setSecondNumber,
     setAddress,
-    secondNumber,
     address,
+    lastName,
+    setLastName,
+    secondName,
+    setSecondName,
   } = UseFormBegin();
 
   return (
@@ -26,22 +24,24 @@ const BeginForm = () => {
         source={require('../../assets/img/DrawKit_0091_Chubbs_Illustrations/chubbConstructor.png')}
       />
 
-      <Text style={styles.titleScreen}>Let's start by taking some data before start...</Text>
+      <Text style={styles.titleScreen}>
+        Let's start by taking some data before start...
+      </Text>
 
       <View style={styles.containerInputs}>
         <InputComponent
-          value={name}
-          onChangeText={setName}
+          value={secondName}
+          onChangeText={setSecondName}
           placeholder="Second Name"
+        />
+        <InputComponent
+          value={lastName}
+          onChangeText={setLastName}
+          placeholder="Last Name"
         />
         <InputComponent
           value={phone}
           onChangeText={setPhone}
-          placeholder="Last Name"
-        />
-        <InputComponent
-          value={email}
-          onChangeText={setEmail}
           placeholder="Phone"
         />
         <InputComponent

@@ -3,7 +3,7 @@ import {RootStackParamList} from '../types/navigation.type';
 import { LoginInterface } from '../interface/user.interface';
 import { useState } from 'react';
 import { isFirstLaunchService, loginService } from '../services/auth.services';
-import { ErrorResponseInterface } from '../interface/auth.interface';
+import { ErrorResponseInterface, LoginResponse } from '../interface/auth.interface';
 import { useAuth } from '../context/authContext';
 
 const LoginHook = () => {
@@ -16,9 +16,7 @@ const LoginHook = () => {
   const [isFirstLaunch, setIsFirstLaunch] = useState<boolean | null>(
     null,
   );
-
   const goTo = useNavigation<RootStackParamList>();
-
   const auth = useAuth()
 
   const handleFormChange = (field: keyof LoginInterface, value: string) => {
@@ -41,8 +39,9 @@ const LoginHook = () => {
     try {
       const res = await loginService({email, password})
 
-      const token = res.data?.token
-      auth.saveSessionInfo(token)
+      const {id, token} = res.data as LoginResponse
+
+      auth.saveSessionInfo(id, token)
       setError('')
 
       await getIsFirstLaunch();

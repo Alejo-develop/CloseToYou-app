@@ -1,21 +1,19 @@
 import {
   Dimensions,
+  Image,
   Modal,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {ModalChangePhotoProps} from '../../../interface/modals.interface';
-import ContainerAvatarsComponent from '../../../components/containerAvatars/containerAvatars.component';
-import {avatars} from '../../../assets/avatars.data';
+import {ModalPhoto} from '../../../interface/modals.interface';
 import ButtonGenericComponent from '../../../components/buttonGeneric/button.component';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen');
 
-const ModalImg = ({visible, onClose}: ModalChangePhotoProps) => {
+const ModalImg = ({visible, onClose, galery, takePhoto}: ModalPhoto) => {
   return (
     <Modal
       animationType="slide"
@@ -24,21 +22,15 @@ const ModalImg = ({visible, onClose}: ModalChangePhotoProps) => {
       onRequestClose={onClose}>
       <View style={styles.container}>
         <View style={styles.modal}>
-          <View style={styles.containerBack}>
-            <TouchableOpacity onPress={onClose}>
-              <Icon name="arrow-left" style={{color: '#79169D', fontSize: height * 0.035}} />
+            <TouchableOpacity style={{alignSelf: 'flex-start', marginLeft: width * 0.03}} onPress={onClose}>
+              <Icon name="arrow-left" style={{color: '#79169D', fontSize: height * 0.035, zIndex: 3}} />
             </TouchableOpacity>
-          </View>
-            <Text style={styles.title}>Avatars</Text>
 
-          <ContainerAvatarsComponent
-            avatars={avatars}
-            styleContainer={styles.containerAvatars}
-            styleAvatar={styles.avatar}
-          />
+
+          <Image style={styles.chubb} source={require('../../../assets/img/DrawKit_0091_Chubbs_Illustrations/stylePorfile.png')}/>
           <View style={styles.containerButtons}>
-            <ButtonGenericComponent text="Take Photo" />
-            <ButtonGenericComponent text="Look galery" />
+            <ButtonGenericComponent text="Take Photo" onPress={takePhoto}/>
+            <ButtonGenericComponent text="Look galery" onPress={galery}/>
           </View>
         </View>
       </View>
@@ -59,38 +51,16 @@ const styles = StyleSheet.create({
     height: height * 0.535,
     width: width * 0.9,
     borderRadius: 12,
-    paddingTop: height * 0.03,
     alignItems: 'center',
-    gap: height * 0.02,
+    justifyContent: 'center'
   },
-  containerBack: {
-    width: width * 0.8,
-    justifyContent: 'flex-start',
-    height: height * 0.035,
-  },
-  title: {
-    fontSize: height * 0.03,
-    fontWeight: 'bold',
-    color: 'black',
-  },
-  containerAvatars: {
-    width: width * 0.8,
-    height: height * 0.21,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    borderWidth: 3,
-    marginBottom: 20,
-    gap: 10,
-  },
-  avatar: {
-    width: width * 0.24,
-    height: height * 0.093,
+  chubb: {
+    width: width * 0.4,
+    height: height * 0.4
   },
   containerButtons: {
     flexDirection: 'row',
     gap: width * 0.04,
-    marginTop: height * 0.04
   },
 });
 

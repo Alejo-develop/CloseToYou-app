@@ -15,28 +15,14 @@ export const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     gap: 10,
     justifyContent: 'space-evenly',
+    alignItems: 'center'
   },
-  containerItemsHeader: {
-    alignItems: 'center',
-    gap: 15,
-    justifyContent: 'center'
-  },
-  img: {
-    width: width * 0.25,
-    height: height * 0.2,
-  },
-  titleSectionContact: {
-    textAlign: 'center',
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: 'black',
-    marginTop: 20,
-  },
-  titleSectionContactSpan: {
-    color: '#79169D',
+  buttonsHeader: {
+    flexDirection: 'row',
+    gap: width * 0.07
   },
   containerContacts: {
     height: height * 0.73,

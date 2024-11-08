@@ -17,8 +17,10 @@ interface AuthContextProps {
   deleteContact: (id: number) => void;
   editContact: (updateUser: ContactInterface) => Promise<void>;
   isAuth: boolean;
-  saveSessionInfo: (token: string) => Promise<void>;
+  saveSessionInfo: (id: string, token: string) => Promise<void>;
   signOut: () => Promise<void>;
+  getId: () => string,
+  getToken: () => Promise<string>
 }
 
 const AuthContext = createContext<AuthContextProps>({
@@ -32,15 +34,18 @@ const AuthContext = createContext<AuthContextProps>({
   isAuth: false,
   saveSessionInfo: async () => {},
   signOut: async () => {},
+  getId: () => '',
+  getToken: async () => ''
 });
-
+ 
 export const AuthProvider = ({children}: AuthProviderProps) => {
   const [contacts, setContacts] = useState<ContactInterface[]>([]);
-  const [user, setUser] = useState<UserInfoInterface>();
-  const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [idUser, setIdUser] = useState<string>('');
+  const [isAuth, setIsAuth] = useState<boolean>(false); 
 
-  const saveSessionInfo = async (token: string) => {
+  const saveSessionInfo = async (id: string, token: string) => {
     setIsAuth(true);
+    setIdUser(id)
     await AsyncStorage.setItem('accesstoken', token);
 
     return;
@@ -49,9 +54,19 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
   const signOut = async () => {
     setIsAuth(false);
     await AsyncStorage.removeItem('accesstoken');  
+ 
+    return; 
+  };  
 
-    return;
-  }; 
+  const getId = () => { 
+    return idUser
+  } 
+
+  const getToken = async () =>{
+    return await AsyncStorage.getItem('accesstoken') as string
+  } 
+
+  //Esto se tiene que recfactorizar
 
   const fetchContacts = async () => {
     try {
@@ -60,31 +75,31 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
         const contactData = JSON.parse(_contacts) as ContactInterface[];
         setContacts(contactData); 
         return contactData;
-      }
+      } 
 
       return null;
     } catch (err) {
       console.log(err);
       return null;
     }
-  };
-
+  }; 
+  
   const getUser = async () => {
     try {
       const _user = await AsyncStorage.getItem('userInfo');
       if (_user) {
         const userData = JSON.parse(_user) as UserInfoInterface;
-        setUser(userData);
+       
         return userData;
       }
-
-      return null;
+ 
+      return null; 
     } catch (err) {
       console.log(err); 
-      return null;  
-    }
+      return null;   
+    }  
   };
-
+ 
   const saveContact = async (newContact: ContactInterface) => {
     const genericUserUri = Image.resolveAssetSource(
       require('../assets/img/DrawKit_0091_Chubbs_Illustrations/genericUserPhoto.png'),
@@ -108,9 +123,9 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
       console.error(err);
     }
   };
- 
+  
   const editContact = async (updateUser: ContactInterface) => {
-    try {
+    try { 
       console.log(updateUser.id);
 
       const updateContacts = contacts.map(contact =>
@@ -122,17 +137,17 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
     } catch (err) {
       console.error('Error Edit a contact' + err);
     }
-  };
+  }; 
 
   const deleteContact = async (id: number) => {
     try {
-      const updateContacts = contacts.filter(contact => contact.id !== id);
+      const updateContacts = contacts.filter(contact => contact.id !== id); 
 
       await AsyncStorage.setItem('contacts', JSON.stringify(updateContacts));
       setContacts(updateContacts);
       await fetchContacts();
     } catch (err) {
-      console.error('Error deleting a contact' + err);
+      console.error('Error deleting a contact' + err); 
       return null; 
     }
   };
@@ -152,6 +167,8 @@ export const AuthProvider = ({children}: AuthProviderProps) => {
         getContacts,
         saveContact,
         deleteContact,
+        getId,
+        getToken
       }}>
       {children}
     </AuthContext.Provider>

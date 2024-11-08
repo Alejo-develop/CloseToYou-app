@@ -1,28 +1,23 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import {
   Dimensions,
+  GestureResponderEvent,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 
+interface SignOutProps{
+    onPress: (event: GestureResponderEvent) => void
+}
+
 const {width} = Dimensions.get('screen');
-
-type RootStackParamList = {
-  Form: undefined;
-};
-
-const AddContactButtonComponent = () => {
-  const goTo = useNavigation<NavigationProp<RootStackParamList>>()
-  const onPress = () => {
-    goTo.navigate('Form')
-  }
-
+const SignOutButtonComponent: React.FC<SignOutProps> = ({onPress}) => {
   return (
     <View>
       <TouchableOpacity style={styles.button} onPress={onPress}>
-        <Text style={styles.textButton}>Add new contact</Text>
+        <Text style={styles.textButton}>Sign Out</Text>
       </TouchableOpacity>
     </View>
   );
@@ -50,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddContactButtonComponent;
+export default SignOutButtonComponent;

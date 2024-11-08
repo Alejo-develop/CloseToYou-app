@@ -2,83 +2,105 @@ import {useState} from 'react';
 import {UserInfoInterface} from '../interface/user.interface';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import {avatars} from '../assets/avatars.data.ts';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useAuth} from '../context/authContext.tsx';
+import {updateUserService} from '../services/user.services.tsx';
+import { selectImgService, takePhotoService } from '../services/camera.services.tsx';
 
-interface Props extends NativeStackScreenProps<any, any>{}
+interface Props extends NativeStackScreenProps<any, any> {}
 const UseFormBegin = () => {
-  const [name, setName] = useState<string>('');
+  const [secondName, setSecondName] = useState<string>('');
   const [phone, setPhone] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [secondNumber, setSecondNumber] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
   const [address, setAddress] = useState<string>('');
-  const [img, setImg] = useState<string>('');
+  const [imgSelected, setImg] = useState<string | null>(null);
   const [infoUser, setInfoUser] = useState<UserInfoInterface>();
-  const [avatarSelected, setAvatarSelected] = useState<string>(avatars[0].img);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   const goTo = useNavigation<Props['navigation']>();
+  const auth = useAuth();
 
   const getInfoUser = async () => {
-    if (!name || !phone || !email) {
-      console.log('All fields are required');
-      return;
-    }
-    setInfoUser({name, phone, email, address, secondNumber});
+    setInfoUser({lastName, phone, address, secondName});
 
-    goTo.navigate('ChooseAvatar', {name, phone, email});
+    goTo.navigate('ChooseAvatar', {lastName, phone, address, secondName});
   };
 
-  const getInfoUserWithAvatar = async (user: UserInfoInterface) => {
-    if (!img) {
-      console.log('Choose a avatar');
+  const afteChooseImg = async (source: string) => {
+    if(source === 'camera'){
+      await takePhotoService(setImg)
     }
 
-    await saveInfoUser(user);
-  };
+    if(source === 'galery'){
+      selectImgService(setImg)
+    }
 
-  const saveInfoUser = async (user: UserInfoInterface) => {
+    setIsOpenModal(false)
+  }
+  
+  const updateUser = async (updatedUser: UserInfoInterface) => {
+    const id = auth.getId();
+    const token = await auth.getToken();
+    console.log('Sending data to backend:', updatedUser); 
+    
     try {
-      await AsyncStorage.setItem('userInfo', JSON.stringify(user));
-      await AsyncStorage.setItem('onboardingCompleted', 'true');
+      const res = await updateUserService(id, updatedUser, token);
+      // await AsyncStorage.setItem('onboardingCompleted', 'true');
       
-      goTo.navigate('Main' as never);
+      goTo.navigate('Main');
     } catch (err) {
       console.log(err);
     }
   };
-
-  const handleNext = ({ name, email, phone, img, address, secondNumber }: UserInfoInterface) => {
-    const newUser = { name, email, phone, img: img, address, secondNumber};
-    
-    getInfoUserWithAvatar(newUser); 
-  };
-
-  const onPress = (index: any, img: string) =>{ 
-    const selectedImg = avatars[index]?.img || '';
-    setAvatarSelected(img)
-    setImg(img)
-  }
-
-  return {
-    name,
+  
+  const handleNext = async ({
+    lastName,
     phone,
-    email,
-    setName,
+    address,
+    secondName,
+  }: UserInfoInterface) => {
+    const updatedUser: UserInfoInterface = {
+      lastName: lastName || undefined,
+      img: imgSelected || undefined,
+      phone: phone || undefined,
+      address: address || undefined,
+      secondName: secondName || undefined,
+    };
+
+    const filteredUser = Object.fromEntries(
+      Object.entries(updatedUser).filter(([key, value]) => value !== undefined),
+    );
+
+    console.log('filtered', filteredUser);
+    
+
+    if (Object.keys(filteredUser).length === 0) {
+      console.log('filtered', filteredUser);
+     
+      goTo.navigate('Main');
+      return; 
+    }
+
+    await updateUser(filteredUser);
+  };
+  
+  return {
+    phone,
+    setLastName,
+    lastName,
     setPhone,
-    setEmail,
+    secondName,
+    setSecondName,
     address,
     setAddress,
-    secondNumber,
-    setSecondNumber,
-    img,
+    img: imgSelected,
     infoUser,
     setImg,
     handleNext,
     validetInputs: getInfoUser,
-    getInfoUserWithAvatar,
-    avatarSelected,
-    setAvatarSelected,
-    onPress
+    isOpenModal,
+    setIsOpenModal,
+    afteChooseImg
   };
 };
 

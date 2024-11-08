@@ -18,7 +18,9 @@ export interface ModalContactInfoProps{
   img: string;
 }
 
-export interface ModalChangePhotoProps{
+export interface ModalPhoto{
   visible: boolean;
-  onClose: () => void
+  onClose: () => void;
+  takePhoto?: () => void;
+  galery: () => void
 }
