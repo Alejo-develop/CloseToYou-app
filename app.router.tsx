@@ -17,6 +17,7 @@ import LoginScreen from './src/screen/login/login.screen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator<MainTabParamList>();
+
 const MyTabs = () => (
   <Tab.Navigator
     screenOptions={({route}) => ({
@@ -42,20 +43,15 @@ const MyTabs = () => (
 );
 
 const MyStack = () => {
-  const auth = useAuth()
-  const isLog = auth.isAuth
+  const auth = useAuth();
+  const isLog = auth.isAuth;
 
-  const [isFirstLaunch, setIsFirstLaunch] = React.useState<boolean | null>(
-    null,
-  );
+  const [isFirstLaunch, setIsFirstLaunch] = React.useState<boolean | null>(null);
 
   React.useEffect(() => {
     const checkFirstLaunch = async () => {
-      const hasCompletedOnboarding = await AsyncStorage.getItem(
-        'onboardingCompleted',
-      );
+      const hasCompletedOnboarding = await AsyncStorage.getItem('onboardingCompleted');
       setIsFirstLaunch(hasCompletedOnboarding === null);
-      await AsyncStorage.clear();
     };
 
     checkFirstLaunch();
@@ -66,64 +62,67 @@ const MyStack = () => {
   }
 
   return (
-    <AuthProvider>
-      <NavigationContainer>
-        {/* <Stack.Navigator initialRouteName={ 'GetStarted' }> */}
-         {/* <Stack.Navigator initialRouteName={ 'SignUp' }> */}
-        <Stack.Navigator
-          initialRouteName={isFirstLaunch ? 'GetStarted' : isLog ? 'Main' : 'Login'}>
-          <Stack.Screen
-            name="GetStarted"
-            component={GetStartedScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Begin"
-            component={BeginForm}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="ChooseAvatar"
-            component={ChooseYourAvatar}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name='SignUp'
-            component={SignUpScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name='Login'
-            component={LoginScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Main"
-            component={MyTabs}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Profile"
-            component={SettingsPorfileScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Form"
-            component={AddOrEditScreen}
-            options={{headerShown: false}}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </AuthProvider>
+    <Stack.Navigator
+      initialRouteName={isFirstLaunch ? 'GetStarted' : isLog ? 'Main' : 'Login'}>
+      <Stack.Screen
+        name="GetStarted"
+        component={GetStartedScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Begin"
+        component={BeginForm}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ChooseAvatar"
+        component={ChooseYourAvatar}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUpScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Main"
+        component={MyTabs}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={SettingsPorfileScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Form"
+        component={AddOrEditScreen}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
   );
 };
 
-export default MyStack;
+const App = () => (
+  <AuthProvider>
+    <NavigationContainer>
+      <MyStack />
+    </NavigationContainer>
+  </AuthProvider>
+);
+
+export default App;
+
 
 // <AuthProvider>
 // <NavigationContainer>

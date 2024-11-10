@@ -33,8 +33,9 @@ export const styles = StyleSheet.create({
   },
   img: {
     width: width * 0.25,
-    height: height * 0.1,
-    marginBottom: height * 0.02
+    height: height * 0.105,
+    marginBottom: height * 0.02,
+    borderRadius: 100,
   },
   containerButtonsModal: {
     width: width * 1,
@@ -101,5 +102,11 @@ export const styles = StyleSheet.create({
   titleMap: {
     color: 'white',
     fontWeight: 'bold'
+  },
+  map: {
+    width: width * 0.8,
+    height: width * 0.37,
+    borderBottomEndRadius: 12,
+    borderBottomLeftRadius: 12,
   }
 });

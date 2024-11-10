@@ -6,9 +6,11 @@ const {height} = Dimensions.get('screen');
 interface CardDetailProps {
   title: string;
   subtitle: string | undefined;
+  onChangeText?: (text: string) => void;
+  value?: string
 }
 
-const DetailCard = ({title, subtitle}: CardDetailProps) => {
+const DetailCard = ({title, subtitle, onChangeText, value}: CardDetailProps) => {
   return (
     <View style={styles.card}>
       <Text style={styles.title}>{title}</Text>
@@ -16,8 +18,10 @@ const DetailCard = ({title, subtitle}: CardDetailProps) => {
       <TextInput
         style={styles.input}
         placeholder={subtitle}
+        onChangeText={onChangeText}
         placeholderTextColor={'black'}
         editable={true}
+        value={value}
       />
     </View>
   );

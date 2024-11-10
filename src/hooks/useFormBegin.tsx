@@ -45,7 +45,7 @@ const UseFormBegin = () => {
     
     try {
       const res = await updateUserService(id, updatedUser, token);
-      // await AsyncStorage.setItem('onboardingCompleted', 'true');
+      await AsyncStorage.setItem('onboardingCompleted', 'true');
       
       goTo.navigate('Main');
     } catch (err) {
@@ -70,13 +70,10 @@ const UseFormBegin = () => {
     const filteredUser = Object.fromEntries(
       Object.entries(updatedUser).filter(([key, value]) => value !== undefined),
     );
-
-    console.log('filtered', filteredUser);
     
 
     if (Object.keys(filteredUser).length === 0) {
-      console.log('filtered', filteredUser);
-     
+      await AsyncStorage.setItem('onboardingCompleted', 'true');
       goTo.navigate('Main');
       return; 
     }

@@ -40,18 +40,22 @@ const ContactList: React.FC<ContactListProps> = ({ contacts }) => {
     <SectionList
       style={styles.containerList}
       sections={sections}
-      keyExtractor={item => item.id.toString()}
+      keyExtractor={(item, index) => item.id || `contact-${index}`}
       renderItem={({ item }) => (
         <View style={{ alignItems: 'center', justifyContent: 'center', marginBottom: 15 }}>
           <ContactCardComponent
             name={item.name}
             img={item.img}
             role={item.role}
-            index={item.id}
-            number={item.number}
-            secondNumber={item.secondNumber}
+            index={item.id ? item.id : ''}
+            number={item.phone}
+            secondPhone={item.secondPhone}
             address={item.address}
             email={item.email}
+            seconName={item.secondName}
+            lastName={item.lastName}
+            longitude={item.longitude}
+            latitude={item.latitude}
           />
         </View>
       )}

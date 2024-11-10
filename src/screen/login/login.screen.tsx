@@ -40,7 +40,7 @@ const LoginScreen = () => {
             onChangeText={text => handleFormChange('password', text)}
             entry={true}
           />
-        </View>
+        </View> 
 
         <FooterComponent
           form={form}

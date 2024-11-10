@@ -6,6 +6,7 @@ import {styles} from './style.ts';
 const GenereicModalComponent = ({
   visible,
   onClose,
+  text
 }: ModalGenericProps) => {
   return (
     <Modal
@@ -21,7 +22,7 @@ const GenereicModalComponent = ({
               style={styles.img}
               source={require('../../assets/img/DrawKit_0091_Chubbs_Illustrations/idontcarechubb.png')}
             />
-            <Text style={styles.textInfo}>The contact must have a name</Text>
+            <Text style={styles.textInfo}>{text}</Text>
           </View>
 
           <View style={styles.containerButtons}>

@@ -3,19 +3,24 @@ export interface ModalGenericProps {
   onClose: () => void;
   onConfirm?: () => void;
   contactName?: string | undefined;
+  text?: string
 }
 
 export interface ModalContactInfoProps{
   visible: boolean;
   onClose: () => void;
-  id: number;
+  id: string;
   name: string;
-  number: string | undefined;
+  seconName: string | undefined;
+  lastName: string | undefined;
+  phone: string | undefined;
   role: string | undefined;
-  secondNumber: string | undefined;
+  secondPhone: string | undefined;
   email: string | undefined;
   address: string | undefined;
-  img: string;
+  latitude?: number | null,
+  longitude?: number | null,
+  img?: string;
 }
 
 export interface ModalPhoto{

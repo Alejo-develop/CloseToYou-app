@@ -1,10 +1,30 @@
 export interface ContactInterface{
-    id: number;
+    id?: string;
     name: string;
-    number?: string;
+    userId?: string;
+    secondName?: string;
     role?: string;
-    secondNumber?: string;
+    lastName?: string;
+    phone?: string;
+    secondPhone?: string;
     email?: string;
     address?: string;
-    img: string;
+    img?: string;
+    latitude?: number | null,
+    longitude?: number | null,
+}
+
+export interface CreateContactInterface{
+    name: string;
+    userId?: string;
+    secondName?: string;
+    lastName?: string;
+    phone?: string;
+    role?: string;
+    secondPhone?: string;
+    email?: string;
+    address?: string;
+    img?: string;
+    latitude?: number | null,
+    longitude?: number | null,
 }

@@ -14,7 +14,11 @@ const ContactCardComponent = ({
   email,
   address,
   number,
-  secondNumber,
+  secondPhone,
+  seconName,
+  lastName,
+  longitude,
+  latitude
 }: ContactCardProps) => {
   const {
     handleEdit,
@@ -30,12 +34,17 @@ const ContactCardComponent = ({
     <TouchableOpacity style={styles.cardContainer} onPress={() => setIsModalInfoVisible(true)}>
       <TouchableOpacity style={styles.containerInfocontact} onPress={() => setIsModalInfoVisible(true)}>
         <View style={styles.containerImg}>
-          <Image style={styles.imgContact} source={{ uri: img }} />
-        </View>
+          {img ? (
+           <Image style={styles.imgContact} source={{ uri: img }} /> 
+          ):(
+
+          <Image style={styles.imgContact} source={require('../../assets/img/DrawKit_0091_Chubbs_Illustrations/genericUserPhoto.png')} />
+          )}
+          </View>
 
         <View>
           <Text style={styles.nameContact}>{name}</Text>
-          <Text style={styles.roleContact}>{role}</Text>
+          <Text style={styles.roleContact}>{role ? role : 'Friend'}</Text>
         </View>
       </TouchableOpacity>
 
@@ -44,18 +53,22 @@ const ContactCardComponent = ({
           onPress={() =>
             handleEdit({
               name,
-              role,
+              role: role,
               img,
               id: index,
               email,
               address,
-              number,
-              secondNumber,
+              phone: number,
+              secondPhone: secondPhone,
+              lastName,
+              secondName: seconName,
+              longitude,
+              latitude
             })
           }>
           <Icon name="pencil" style={styles.icons} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => showModalDelete(index)}>
+        <TouchableOpacity onPress={() => showModalDelete()}>
           <Icon name="trash-o" style={styles.icons} />
         </TouchableOpacity>
 
@@ -70,12 +83,16 @@ const ContactCardComponent = ({
           onClose={() => setIsModalInfoVisible(false)}
           name={name}
           id={index}
-          number={number}
+          phone={number}
           role={role}
-          secondNumber={secondNumber}
+          secondPhone={secondPhone}
+          seconName={seconName}
+          lastName={lastName}
           email={email}
           address={address}
           img={img}
+          longitude={longitude}
+          latitude={latitude}
         />
       </View>
     </TouchableOpacity>

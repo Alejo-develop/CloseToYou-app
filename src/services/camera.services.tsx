@@ -29,8 +29,8 @@ export const selectImgService = async (
           return;
         }
       }
-      console.log('uri', uri);
       setImg(uri); // Establecer la nueva ruta de la imagen
+      return uri
     }
   });
 };
@@ -83,6 +83,8 @@ export const takePhotoService = async (
         if(typeof uri === 'string'){
           setImg(uri); 
         }
+
+        return uri
       } else {
         Alert.alert('Error', 'No image was captured');
       }

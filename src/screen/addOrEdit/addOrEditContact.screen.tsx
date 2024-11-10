@@ -6,7 +6,10 @@ import {useEffect} from 'react';
 import AddOrEditHook from '../../hooks/addOrEdit';
 import {useRoute} from '@react-navigation/native';
 import {ContactInterface} from '../../interface/contacts.interface';
+import ModalImg from '../settingsUser/components/modalImg.component';
 import GenereicModalComponent from '../../components/genericModal/genericModal.component';
+import ButttonMapComponent from './components/buttonMap.component';
+import MapModal from '../../components/modalMap/modalMap.component';
 
 const AddOrEditScreen = () => {
   const route = useRoute();
@@ -18,12 +21,17 @@ const AddOrEditScreen = () => {
     setForm,
     form,
     handleEdit,
-    handleNext,
     handleSubmit,
     imgSelected,
     setImgSelected,
     setIsModalVisible,
-    isModalVisible
+    isModalVisible,
+    afteChooseImg,
+    isModalError,
+    setIsModalError,
+    modalMap,
+    setModalMap,
+    handleSaveLocation
   } = AddOrEditHook(contactParams);
 
   useEffect(() => {
@@ -34,11 +42,15 @@ const AddOrEditScreen = () => {
     <View style={styles.container}>
       <View style={styles.containerImg}>
         {imgSelected === null ? (
-          <TouchableOpacity style={styles.buttonSelectImg} onPress={handleNext}>
+          <TouchableOpacity
+            style={styles.buttonSelectImg}
+            onPress={() => setIsModalVisible(true)}>
             <Text style={styles.textButtonSelectImg}>Add Photo</Text>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity style={styles.buttonSelect} onPress={handleNext}>
+          <TouchableOpacity
+            style={styles.buttonSelect}
+            onPress={() => setIsModalVisible(true)}>
             <Image style={styles.imgSelected} source={{uri: imgSelected}} />
           </TouchableOpacity>
         )}
@@ -46,13 +58,31 @@ const AddOrEditScreen = () => {
 
       <View style={styles.containerInputs}>
         <InputComponent
-          placeholder={contactParams?.name ? contactParams?.name : `Full Name`}
+          placeholder={contactParams?.name ? contactParams?.name : `Name`}
           onChangeText={text => setForm('name', text)}
         />
+
         <InputComponent
-          placeholder={contactParams?.number ? contactParams?.number : `Phone`}
-          onChangeText={text => setForm('number', text)}
+          placeholder={
+            contactParams?.secondName
+              ? contactParams?.secondName
+              : `Second Name`
+          }
+          onChangeText={text => setForm('secondName', text)}
         />
+
+        <InputComponent
+          placeholder={
+            contactParams?.lastName ? contactParams?.lastName : `Last Name`
+          }
+          onChangeText={text => setForm('lastName', text)}
+        />
+
+        <InputComponent
+          placeholder={contactParams?.phone ? contactParams?.phone : `Phone`}
+          onChangeText={text => setForm('phone', text)}
+        />
+
         <InputComponent
           placeholder={
             contactParams?.role ? contactParams?.role : `How is for you`
@@ -61,21 +91,19 @@ const AddOrEditScreen = () => {
         />
         <InputComponent
           placeholder={
-            contactParams?.secondNumber
-              ? contactParams?.secondNumber
+            contactParams?.secondPhone
+              ? contactParams?.secondPhone
               : `Second phone`
           }
-          onChangeText={text => setForm('secondNumber', text)}
+          onChangeText={text => setForm('secondPhone', text)}
         />
         <InputComponent
           placeholder={contactParams?.email ? contactParams?.email : `Email`}
           onChangeText={text => setForm('email', text)}
         />
-        <InputComponent
-          placeholder={
-            contactParams?.address ? contactParams?.address : `Address`
-          }
-          onChangeText={text => setForm('address', text)}
+        <ButttonMapComponent
+          text={contactParams?.address ? 'Edit Location' : 'Add Location'}
+          onPress={() => setModalMap(true)}
         />
       </View>
 
@@ -89,13 +117,33 @@ const AddOrEditScreen = () => {
             text={!!contactParams?.name ? `Confirm Changes` : `Save`}
             onPress={
               contactParams?.name
-                ? () => handleEdit(form)
+                ? () =>
+                    handleEdit(contactParams.id ? contactParams.id : '', form)
                 : () => handleSubmit(form)
             }
           />
 
-          <GenereicModalComponent visible={isModalVisible} onClose={() => setIsModalVisible(false)} />
+          <ModalImg
+            visible={isModalVisible}
+            onClose={() => setIsModalVisible(false)}
+            galery={() => afteChooseImg('galery')}
+            takePhoto={() => afteChooseImg('camera')}
+          />
+
+          <GenereicModalComponent
+            visible={isModalError}
+            onClose={() => setIsModalError(false)}
+            text="The contact must have a name"
+          />
         </View>
+
+        <MapModal
+        visible={modalMap}
+        onClose={() => setModalMap(false)}
+        onSave={(latitude, longitude) => {
+          handleSaveLocation(latitude, longitude, setModalMap);
+        }}
+      />
       </View>
     </View>
   );

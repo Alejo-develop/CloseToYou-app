@@ -27,7 +27,6 @@ export const styles = StyleSheet.create({
   containerContacts: {
     height: height * 0.73,
     alignItems: 'center',
-    paddingTop: height * 0.015
   },
   titleContainerSectionContacts:{
     fontWeight: 'bold',

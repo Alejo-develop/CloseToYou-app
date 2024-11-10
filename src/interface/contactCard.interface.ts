@@ -1,10 +1,14 @@
 export interface ContactCardProps{
-    index: number;
+    index: string;
     name: string;
-    number?: string;
+    seconName?: string;
+    lastName?: string;
     role?: string;
-    secondNumber?: string;
+    number?: string;
+    secondPhone?: string;
     email?: string;
     address?: string;
-    img: string;
+    img?: string;
+    latitude?: number | null,
+    longitude?: number | null,
 }

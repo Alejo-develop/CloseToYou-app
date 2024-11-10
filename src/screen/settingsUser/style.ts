@@ -30,8 +30,9 @@ export const styles = StyleSheet.create({
     elevation: 12,
   },
   imgUser: {
-    width: width * 0.68,
-    height: height * 0.256,
+    width: width * 0.6, 
+    height: width * 0.6,
+    borderRadius: (width * 0.6) / 2,
   },
   containerInfo: {
     backgroundColor: 'white',
@@ -45,8 +46,8 @@ export const styles = StyleSheet.create({
   },
   titleUserInfo: {
     textAlign: 'center',
-    marginTop: height * 0.05, 
-    fontSize: height * 0.033, 
+    marginTop: height * 0.07, 
+    fontSize: height * 0.025, 
     color: '#333', 
     fontWeight: '600', 
     textShadowColor: 'rgba(121, 22, 157, 0.2)', 

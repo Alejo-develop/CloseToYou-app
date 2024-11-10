@@ -46,12 +46,11 @@ const LoginHook = () => {
 
       await getIsFirstLaunch();
 
-      if(isFirstLaunch === null){
-        goTo.navigate('Begin')  
-        return
+      if (isFirstLaunch) {
+        goTo.navigate('GetStarted');  
+      } else {
+        goTo.navigate('Main');        
       }
-
-      goTo.navigate('Begin')
     } catch (err: any) {
       const apiError = err.response?.data as ErrorResponseInterface;
       if (apiError?.message) {

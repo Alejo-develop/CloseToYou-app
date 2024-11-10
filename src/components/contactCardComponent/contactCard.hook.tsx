@@ -4,6 +4,7 @@ import { useAuth } from '../../context/authContext';
 import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
 import { ContactInterface } from '../../interface/contacts.interface';
 import { Linking } from 'react-native';
+import { deleteContactService } from '../../services/contacts.services';
 
 interface Props extends NativeStackScreenProps<any, any> {}
 
@@ -11,10 +12,9 @@ const ContactCardHook = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isModalInfoVisible, setIsModalInfoVisible] = useState<boolean>(false);
-  const [selectedContactId, setSelectedContactId] = useState<number | null>(null); 
-  const userContext = useAuth();
   const goTo = useNavigation<Props['navigation']>();
   const isFocused = useIsFocused();
+  const auth = useAuth()
 
   useFocusEffect(() => {
     if (isFocused && isEditing) {
@@ -29,14 +29,15 @@ const ContactCardHook = () => {
     goTo.navigate('Form', contact);
   };
 
-  const handleDelete = (index: number) => {
-    userContext.deleteContact(index);
-    userContext.fetchContacts();
+  const handleDelete = async (index: string) => {
+    const token = await auth.getToken()
+    await deleteContactService(index, token)
     setIsModalVisible(false);
+    goTo.navigate('Main');
   };
 
-  const showModalDelete = (index: number) => {
-    setSelectedContactId(index);
+  const showModalDelete = () => {
+  
     setIsModalVisible(true);
   };
 

@@ -15,8 +15,6 @@ const HomeScreenHook = () => {
   const fetchData = async () => {
     const token = await auth.getToken()
     const contacts = await getAllContactsServices(token)
-    console.log('contacts', contacts);
-    
     setContacts(contacts)
   }; 
 

@@ -1,25 +1,39 @@
 import {useState} from 'react';
-import * as ImagePicker from 'react-native-image-picker';
-import {ContactInterface} from '../interface/contacts.interface';
+import {
+  ContactInterface,
+  CreateContactInterface,
+} from '../interface/contacts.interface';
 import {useAuth} from '../context/authContext';
 import {useNavigation} from '@react-navigation/native';
+import {
+  saveContactService,
+  updateContactService,
+} from '../services/contacts.services';
+import {selectImgService, takePhotoService} from '../services/camera.services';
 
 const AddOrEditHook = (contactParams?: ContactInterface) => {
-  const initialForm: ContactInterface = {
-    id: contactParams?.id || 0,
+  const initialForm: CreateContactInterface = {
     name: contactParams?.name || '',
-    number: contactParams?.number || '',
+    secondName: contactParams?.secondName || '',
+    lastName: contactParams?.lastName || '',
     role: contactParams?.role || '',
-    secondNumber: contactParams?.secondNumber || '',
+    phone: contactParams?.phone || '',
+    secondPhone: contactParams?.secondPhone || '',
     email: contactParams?.email || '',
     address: contactParams?.address || '',
-    img: contactParams?.img || ''
+    img: contactParams?.img || '',
+    latitude: contactParams?.latitude || null,
+    longitude: contactParams?.longitude || null
   };
 
   const [img, setImg] = useState<string | null>(null);
   const [form, setForm] = useState<ContactInterface>(initialForm);
-  const [imgSelected, setImgSelected] = useState<string | null>(contactParams?.img || img);
+  const [imgSelected, setImgSelected] = useState<string | null>(
+    contactParams?.img || img,
+  );
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const [isModalError, setIsModalError] = useState<boolean>(false);
+  const [modalMap, setModalMap] = useState<boolean>(false);
 
   const handleFormChange = (field: keyof ContactInterface, value: string) => {
     setForm(prevForm => ({
@@ -27,65 +41,84 @@ const AddOrEditHook = (contactParams?: ContactInterface) => {
       [field]: value,
     }));
   };
-  const userContext = useAuth();
+  const auth = useAuth();
   const goTo = useNavigation();
 
-  const selectImg = () => {
-    ImagePicker.launchImageLibrary(
-      {mediaType: 'photo', quality: 1},
-      (response: ImagePicker.ImagePickerResponse) => {
-        if (response.didCancel) {
-          return;
-        }
-        if (response.errorMessage) {
-          return;
-        }
-        if (response.assets && response.assets.length > 0) {
-          const uri = response.assets[0].uri ?? '';
-          setImg(uri);
-          handleFormChange('img', uri);
-        }
-      },
-    );
-  };
-
   const handleSubmit = async (form: ContactInterface) => {
-    if (form.name === '') {
-      setIsModalVisible(true);
-      return 
-    }
-    await userContext.saveContact(form)
-    goTo.goBack();
+    const id = auth.getId();
+    const token = await auth.getToken();
 
+    if (form.name === '') {
+      setIsModalError(true);
+      return;
+    }
+    const newForm = {
+      ...form,
+      img: imgSelected ? imgSelected : '',
+    };
+
+    await saveContactService(id, newForm, token);
+    goTo.goBack();
   };
 
-  const handleEdit = async (form: ContactInterface) => {
+  const afteChooseImg = async (source: string) => {
+    if (source === 'camera') {
+      await takePhotoService(setImg);
+    }
+
+    if (source === 'galery') {
+      await selectImgService(setImg);
+    }
+
+    if (imgSelected) {
+      handleFormChange('img', imgSelected);
+    }
+    setIsModalVisible(false);
+  };
+
+  const handleEdit = async (contactId: string, form: ContactInterface) => {
+    const token = await auth.getToken();
+    const userId = auth.getId();
     if (form.name) {
-      await userContext.editContact(form) 
+      const newForm = {
+        ...form,
+        img: imgSelected ? imgSelected : '',
+      };
+      console.log(newForm);
+      
+      await updateContactService(contactId, userId, newForm, token);
       goTo.goBack();
     }
 
     goTo.goBack();
   };
 
-  const handleNext = () => {
-    selectImg();
-    setImgSelected(img);
+  const handleSaveLocation = (
+    latitude: number,
+    longitude: number,
+    setModalVisible: React.Dispatch<React.SetStateAction<boolean>>,
+  ) => {   
+    handleFormChange('latitude', latitude);
+    handleFormChange('longitude', longitude);
+    setModalVisible(false);
   };
 
-
   return {
-    selectImg,
     form,
     setForm: handleFormChange,
     img,
     handleSubmit,
     handleEdit,
-    handleNext,
     imgSelected,
     setImgSelected,
     setIsModalVisible,
-    isModalVisible
+    isModalVisible,
+    afteChooseImg,
+    isModalError,
+    setIsModalError,
+    modalMap,
+    setModalMap,
+    handleSaveLocation
   };
 };
 

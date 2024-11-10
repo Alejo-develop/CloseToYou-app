@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
   },
   buttonContent: {
     textAlign: 'center',
-    fontSize: height * 0.018,
+    fontSize: height * 0.016,
     fontWeight: '600',
     color: '#FFFFFF',
   },
