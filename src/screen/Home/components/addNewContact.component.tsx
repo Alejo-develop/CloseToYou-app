@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 const {width} = Dimensions.get('screen');
+const {height} = Dimensions.get('screen');
 
 type RootStackParamList = {
   Form: undefined;
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: height * 0.014,
     letterSpacing: 0.8,
   },
 });

@@ -1,5 +1,4 @@
 import {createContext, useContext, useState} from 'react';
-import {ContactInterface} from '../interface/contacts.interface';
 import {UserInfoInterface} from '../interface/user.interface';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getUserByIdService} from '../services/user.services';

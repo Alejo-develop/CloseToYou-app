@@ -17,8 +17,8 @@ export const styles = StyleSheet.create({
   containerImg: {
     borderWidth: 2,
     padding: 10,
-    width: width * 0.6, 
-    height: width * 0.6,
+    width: width * 0.4, 
+    height: width * 0.4,
     borderRadius: (width * 0.6) / 2,
     borderColor: '#ccc', 
     backgroundColor: '#79169D', 

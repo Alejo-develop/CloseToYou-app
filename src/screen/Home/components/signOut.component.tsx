@@ -13,6 +13,8 @@ interface SignOutProps{
 }
 
 const {width} = Dimensions.get('screen');
+const {height} = Dimensions.get('screen');
+
 const SignOutButtonComponent: React.FC<SignOutProps> = ({onPress}) => {
   return (
     <View>
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: height * 0.014,
     letterSpacing: 0.8,
   },
 });

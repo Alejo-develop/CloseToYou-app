@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
   },
   containerModal: {
-    height: height * 0.8,
+    height: height * 0.86,
     width: width * 1,
     borderRadius: 12,
     backgroundColor: 'white',

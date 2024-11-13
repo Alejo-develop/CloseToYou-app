@@ -87,8 +87,12 @@ const AddOrEditHook = (contactParams?: ContactInterface) => {
       console.log(newForm);
       
       await updateContactService(contactId, userId, newForm, token);
-      goTo.goBack();
-    }
+      if (goTo.canGoBack()) {
+        goTo.goBack();
+      } else {
+        goTo.navigate('Main' as never); 
+      }
+    }    
 
     goTo.goBack();
   };

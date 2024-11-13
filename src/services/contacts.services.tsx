@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {ContactInterface, CreateContactInterface} from '../interface/contacts.interface';
 import { BASE_URL } from '../assets/constanst';
+import { useAuth } from '../context/authContext';
 
 export const getAllContactsServices = async (token: string) => {
   try {
@@ -92,9 +93,6 @@ export const updateContactService = async (
     };
     formData.append('img', imageFile);
   }
-
-  // Verificar el contenido de FormData
-  console.log('FormData content:', formData);
 
   try {
     const res = await axios.patch(`${BASE_URL}/contacts/${id}`, formData, {

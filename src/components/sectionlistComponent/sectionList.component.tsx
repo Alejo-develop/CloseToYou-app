@@ -36,7 +36,7 @@ const ContactList: React.FC<ContactListProps> = ({ contacts }) => {
     }));
 
   return (
-    <SafeAreaView style={{ flex: 1, paddingBottom: 55}}>
+    <SafeAreaView style={{ flex: 1,}}>
     <SectionList
       style={styles.containerList}
       sections={sections}

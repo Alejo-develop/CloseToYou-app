@@ -47,7 +47,7 @@ const LoginHook = () => {
       await getIsFirstLaunch();
 
       if (isFirstLaunch) {
-        goTo.navigate('GetStarted');  
+        goTo.navigate('Begin');  
       } else {
         goTo.navigate('Main');        
       }

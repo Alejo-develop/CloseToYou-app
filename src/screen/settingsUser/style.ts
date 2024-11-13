@@ -11,13 +11,13 @@ export const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#79169D',
-    height: height * 0.3,
+    height: height * 0.21,
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
   containerImg: {
-    width: width * 0.57,
-    height: height * 0.25,
+    width: width * 0.5, 
+    height: width * 0.5,
     backgroundColor: 'white',
     borderRadius: 200,
     alignItems: 'center',
@@ -30,8 +30,8 @@ export const styles = StyleSheet.create({
     elevation: 12,
   },
   imgUser: {
-    width: width * 0.6, 
-    height: width * 0.6,
+    width: width * 0.5, 
+    height: width * 0.5,
     borderRadius: (width * 0.6) / 2,
   },
   containerInfo: {
@@ -64,7 +64,7 @@ export const styles = StyleSheet.create({
     gap: width * 0.04,
   },
   avatarImg:{
-    width: width * 0.45,
-    height: height * 0.236,
+    width: width * 0.5, 
+    height: width * 0.5,
   }
 });

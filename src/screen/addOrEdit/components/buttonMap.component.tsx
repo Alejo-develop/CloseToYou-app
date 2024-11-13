@@ -16,7 +16,7 @@ const ButtonMapComponent = ({ text, onPress }: ButtonMapProps) => {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: '#79169D', 
-    paddingVertical: 12,
+    paddingVertical: 10,
     paddingHorizontal: 24,
     borderRadius: 8,
     shadowColor: '#000',
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
   },
 });

@@ -18,7 +18,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: 10,
     justifyContent: 'space-evenly',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop: height * 0.02
   },
   buttonsHeader: {
     flexDirection: 'row',
