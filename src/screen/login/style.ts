@@ -10,15 +10,17 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     gap: height * 0.1,
+    flex: 1
   },
   containerLogin: {
     width: width * 1,
-    height: height * 0.65,
+    height: height * 0.595,
     backgroundColor: 'white',
     borderTopRightRadius: 160,
     elevation: 12,
     alignItems: 'center',
     justifyContent: 'center',
+   
   },
   errMessage: {
     color: '#79169D',

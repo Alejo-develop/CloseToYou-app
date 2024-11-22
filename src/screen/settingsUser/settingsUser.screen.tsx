@@ -25,7 +25,7 @@ const SettingsPorfileScreen = () => {
             source={
               imgUser
                 ? { uri: imgUser }
-                : require('../../assets/img/DrawKit_0091_Chubbs_Illustrations/genericUserPhoto.png')  // Imagen predeterminada si no hay imagen
+                : require('../../assets/img/DrawKit_0091_Chubbs_Illustrations/genericUserPhoto.png')  
             }
             style={imgUser ? styles.imgUser : styles.avatarImg}
           />

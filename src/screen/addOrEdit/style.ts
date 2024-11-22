@@ -12,27 +12,35 @@ export const styles = StyleSheet.create({
     borderTopWidth: 20,
     borderTopColor: '#79169D',
     gap: height * 0.02,
-    padding: height * 0.02
+  },
+  scrollView: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: width * 1,
+    height: height * 1,
+    flexGrow: 1,
+    gap: height * 0.04,
+    marginTop: height * 0.043,
   },
   containerImg: {
     borderWidth: 2,
     padding: 10,
-    width: width * 0.4, 
+    width: width * 0.4,
     height: width * 0.4,
     borderRadius: (width * 0.6) / 2,
-    borderColor: '#ccc', 
-    backgroundColor: '#79169D', 
+    borderColor: '#ccc',
+    backgroundColor: '#79169D',
     alignItems: 'center',
-    justifyContent: 'center', 
-    shadowColor: '#000', 
-    shadowOffset: { width: 0, height: 4 }, 
-    shadowOpacity: 0.2, 
-    shadowRadius: 8, 
-    elevation: 5, 
-    overflow: 'hidden', 
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 5,
+    overflow: 'hidden',
   },
   buttonSelectImg: {
-    width: width * 0.6, 
+    width: width * 0.6,
     height: width * 0.6,
     borderRadius: (width * 0.6) / 2,
     alignItems: 'center',
@@ -52,7 +60,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     width: width * 1,
     justifyContent: 'flex-start',
-    marginRight: width * 0.03
+    marginRight: width * 0.03,
   },
   imgButtonConfirm: {
     width: width * 0.32,
@@ -60,21 +68,21 @@ export const styles = StyleSheet.create({
     position: 'relative',
     bottom: height * 0.16,
     zIndex: -2,
-    left: width * -0.06
+    left: width * -0.06,
   },
   imgSelected: {
-    width: width * 0.6, 
+    width: width * 0.6,
     height: width * 0.6,
     borderRadius: (width * 0.6) / 2,
-    borderWidth: 2
+    borderWidth: 2,
   },
   buttonSelect: {
     width: width * 0.57,
-   
+
     borderRadius: 120,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
-    elevation: 1
-  }
+    elevation: 1,
+  },
 });

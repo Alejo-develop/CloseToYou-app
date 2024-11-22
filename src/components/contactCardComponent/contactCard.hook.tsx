@@ -24,7 +24,7 @@ const ContactCardHook = () => {
   },);
 
   const handleEdit = (contact: ContactInterface) => {
-    setIsModalInfoVisible(true);  
+    setIsModalInfoVisible(false);  
     setIsEditing(true);
     goTo.navigate('Form', contact);
   };
@@ -33,6 +33,7 @@ const ContactCardHook = () => {
     const token = await auth.getToken()
     await deleteContactService(index, token)
     setIsModalVisible(false);
+    setIsModalInfoVisible(false)
     goTo.navigate('Main');
   };
 

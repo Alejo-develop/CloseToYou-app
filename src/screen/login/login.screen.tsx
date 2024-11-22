@@ -1,4 +1,4 @@
-import {Image, Text, View} from 'react-native';
+import {Image, KeyboardAvoidingView, Text, View} from 'react-native';
 import {styles} from './style.ts';
 import InputComponent from '../../components/inputGeneric/input.component.tsx';
 import LoginHook from '../../hooks/login.tsx';
@@ -15,7 +15,7 @@ const LoginScreen = () => {
 
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView  style={styles.container}>
       <Image
         style={styles.chubb}
         source={require('../../assets/img/DrawKit_0091_Chubbs_Illustrations/walkChubb.png')}
@@ -51,7 +51,7 @@ const LoginScreen = () => {
           styletext={styles.text}
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

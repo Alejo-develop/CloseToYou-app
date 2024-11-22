@@ -109,6 +109,7 @@ const ContactInfoModalComponent = ({
               </View>
 
               {longitude && latitude ? (
+                <View style={styles.mapContainer}>
                 <MapView
                   style={styles.map}
                   initialRegion={{
@@ -123,6 +124,7 @@ const ContactInfoModalComponent = ({
                     pinColor="black"
                   />
                 </MapView>
+              </View>
               ) : (
                 <View style={styles.containerMap}>
                   <Text style={styles.titleMap}>Mapa Not Aviable</Text>

@@ -1,4 +1,4 @@
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, KeyboardAvoidingView, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './style';
 import InputComponent from '../../components/inputGeneric/input.component';
 import ButtonGenericComponent from '../../components/buttonGeneric/button.component';
@@ -39,7 +39,9 @@ const AddOrEditScreen = () => {
   }, [img]);
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
+       <ScrollView
+        contentContainerStyle={styles.scrollView}>
       <View style={styles.containerImg}>
         {imgSelected === null ? (
           <TouchableOpacity
@@ -51,7 +53,7 @@ const AddOrEditScreen = () => {
           <TouchableOpacity
             style={styles.buttonSelect}
             onPress={() => setIsModalVisible(true)}>
-            <Image style={styles.imgSelected} source={{uri: imgSelected}} />
+            <Image style={styles.imgSelected} source={contactParams?.img ? {uri: contactParams.img} : {uri: imgSelected}} />
           </TouchableOpacity>
         )}
       </View>
@@ -145,7 +147,8 @@ const AddOrEditScreen = () => {
         }}
       />
       </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

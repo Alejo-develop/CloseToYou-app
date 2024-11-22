@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
   },
   containerModal: {
-    height: height * 0.86,
+    height: height * 0.9,
     width: width * 1,
     borderRadius: 12,
     backgroundColor: 'white',
@@ -46,14 +46,14 @@ export const styles = StyleSheet.create({
   containerInfo: {
     backgroundColor: '#79169D',
     width: width * 1,
-    height: height * 0.525,
+    height: height * 0.58,
     marginTop: height * -0.010,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: height * 0.03
+    gap: height * 0.05,
   },
   cardInfo: {
-    width: width * 0.8,
+    width: width * 0.9,
     height: height * 0.3,
     borderColor: '#79169D',
     elevation: 12,
@@ -63,6 +63,7 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 4,
     backgroundColor: '#f9f9f9',
+    alignContent: 'center',
   },
   containerDetailsContact: {
     height: height * 0.13,
@@ -70,7 +71,8 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 12,
     padding: 10,
-    marginBottom: 4
+    marginBottom: 4,
+    justifyContent: 'center',
   },
   containerDetail:{
     borderBottomWidth: 1,
@@ -79,6 +81,7 @@ export const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
+    
   },
   titleDetail: {
     color: '#79169D',
@@ -89,11 +92,11 @@ export const styles = StyleSheet.create({
     fontSize: height * 0.015,
     width: width * 0.35,
     textAlign: 'center',
-    color: 'black'
+    color: 'black',
   },
   containerMap: {
     backgroundColor: 'black',
-    height: height * 0.166,
+    height: height * 0.2,
     borderBottomEndRadius: 12,
     borderBottomLeftRadius: 12,
     alignItems: 'center',
@@ -103,10 +106,15 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold'
   },
-  map: {
-    width: width * 0.8,
-    height: width * 0.37,
+  mapContainer: {
+    width: width * 0.9,
+    height: height * 0.2,
     borderBottomEndRadius: 12,
     borderBottomLeftRadius: 12,
+    overflow: 'hidden',
+  },
+  map: {
+    width: width * 0.9,
+    height: height * 0.2,
   }
 });

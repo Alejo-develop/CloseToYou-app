@@ -13,11 +13,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopWidth: 20,
     borderTopColor: '#79169D',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    zIndex: 2
   },
   img: {
     width: width * 0.5,
-    height: height * 0.45
+    height: height * 0.4,
+    zIndex: -2
   },
   titleScreen: {
     fontSize: height * 0.02,
@@ -31,3 +33,5 @@ export const styles = StyleSheet.create({
     marginBottom: 35
   }
 });
+
+

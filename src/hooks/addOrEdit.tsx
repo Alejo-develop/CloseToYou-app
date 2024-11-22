@@ -84,13 +84,12 @@ const AddOrEditHook = (contactParams?: ContactInterface) => {
         ...form,
         img: imgSelected ? imgSelected : '',
       };
-      console.log(newForm);
       
       await updateContactService(contactId, userId, newForm, token);
       if (goTo.canGoBack()) {
         goTo.goBack();
       } else {
-        goTo.navigate('Main' as never); 
+        goTo.goBack();
       }
     }    
 

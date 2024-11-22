@@ -53,16 +53,16 @@ const SettingsUserProfileHook = () => {
   const fetchUser = async () => {
     const user = await auth.getUser();
     setUser(user);
-    setImgUser(user?.img || '');  // Establece la imagen inicial si existe
+    setImgUser(user?.img || ''); 
   };
 
-  const updateUser = async (updatedUser: UserInfoInterface) => {
+  const updateUser = async (_updatedUser: UserInfoInterface) => {
     const id = auth.getId();
     const token = await auth.getToken();
-    console.log(updateUser);
+    console.log(_updatedUser);
     
     try {
-      await updateUserService(id, updatedUser, token);
+      await updateUserService(id, _updatedUser, token);
     } catch (err) {
       console.log(err);
     }
